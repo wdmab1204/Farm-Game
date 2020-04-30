@@ -9,6 +9,8 @@ public class Clock : MonoBehaviour
     private int Hour = 9; //시간-저장 // 최초시간은 아침9시
     public float clock_speed; //게임속 1시간이 몇초인가?
     private float tic_toc;
+    [HideInInspector]
+    public float currentTime; //축적된 시간을 저장 - SPKoon
     public bool Day = true; //시간이 흘러가도 괜찮은가?
     // Start is called before the first frame update
     void Start()
@@ -22,6 +24,7 @@ public class Clock : MonoBehaviour
         if (Day == true)
         {
             tic_toc += Time.deltaTime;
+            currentTime += Time.deltaTime; // -SPKoon
             if (clock_speed < tic_toc)
             {
                 Minute += 30;

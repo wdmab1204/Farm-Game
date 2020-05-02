@@ -10,6 +10,8 @@ public class PositionRendererSorter : MonoBehaviour
     private int offset = 0;
     [SerializeField]
     private bool runOnlyOnce = false;
+    [SerializeField]
+    private Transform pivot;
 
     private float timer;
     private float timerMax = .1f;
@@ -18,6 +20,10 @@ public class PositionRendererSorter : MonoBehaviour
     void Awake()
     {
         myRenderer = gameObject.GetComponent<Renderer>();
+        if(pivot == null)
+        {
+            pivot = this.transform;
+        }
     }
 
     void LateUpdate()
@@ -26,7 +32,7 @@ public class PositionRendererSorter : MonoBehaviour
         if (timer <= 0f)
         {
             timer = timerMax;
-            myRenderer.sortingOrder = (int)(sortingOrderBase - transform.position.y - offset);
+            myRenderer.sortingOrder = (int)(sortingOrderBase - pivot.position.y - offset);
             if (runOnlyOnce)
             {
                 Destroy(this);

@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerMoving : MonoBehaviour
 {
     public float speed;
-    private int First_Arrow = 0;
+    public bool diagonalMoving;
+
     private Animator ac;
     private bool playerMoving;
     private bool upDownMoving;
@@ -50,7 +51,7 @@ public class PlayerMoving : MonoBehaviour
         //좌 우
         if (Input.GetAxisRaw("Horizontal")>0f || Input.GetAxisRaw("Horizontal") < 0f)
         {
-            if (!upDownMoving)
+            if (!upDownMoving || diagonalMoving)
             {
                 cureentMove = new Vector2(Input.GetAxisRaw("Horizontal"), 0f);
                 transform.Translate(new Vector3(Input.GetAxisRaw("Horizontal") * speed * Time.deltaTime, 0f, 0f));
@@ -63,7 +64,7 @@ public class PlayerMoving : MonoBehaviour
         //위 아래
         if (Input.GetAxisRaw("Vertical") > 0f || Input.GetAxisRaw("Vertical") < 0f)
         {
-            if (!leftRightMoving)
+            if (!leftRightMoving || diagonalMoving)
             {
                 cureentMove = new Vector2(0f, Input.GetAxisRaw("Vertical"));
                 transform.Translate(new Vector3(0f, Input.GetAxisRaw("Vertical") * speed * Time.deltaTime, 0f));

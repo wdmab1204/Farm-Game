@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sugarcane
+  m_Controller: {fileID: 9100000, guid: 04918f20e90011744b38c6f18a6934fd, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: ebe77e0aac9997840b6d271a25959ab5, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ebe77e0aac9997840b6d271a25959ab5, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 263d2d0544956b249ac60343d7932755, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 263d2d0544956b249ac60343d7932755, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 9cad5436413f4a7489e31048a526ea1f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: aeecade6f740fb743acc7caaa7a11f2c, type: 2}

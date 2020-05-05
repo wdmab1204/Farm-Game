@@ -18,9 +18,8 @@ public class GrowSystem : MonoBehaviour
         startTime = clock.currentTime;
         ac = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
-        originalPosition = transform.position;
-
-        //CheckSpriteWidth();
+        originalPosition = Vector2Int.FloorToInt(transform.position); // 소수점 버림
+        CheckSpriteWidth();
     }
 
 

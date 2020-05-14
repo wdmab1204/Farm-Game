@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
-
-public class PlayerMoving : MonoBehaviour
+using UnityEngine.UI;
+public class Player : MonoBehaviour
 {
     public float speed;
     public bool diagonalMoving;
@@ -14,6 +15,11 @@ public class PlayerMoving : MonoBehaviour
     private Vector2 cureentMove;
     private Vector2 lastMove;
 
+    public GameObject[] slots;
+    [HideInInspector]
+    public List<Item> inventory;
+    public Text debugText;
+
     void Awake()
     {
         ac = GetComponent<Animator>();
@@ -21,35 +27,16 @@ public class PlayerMoving : MonoBehaviour
 
     void Update()
     {
-        //if (First_Arrow == 0 && Input.GetKey(KeyCode.LeftArrow)) First_Arrow = 1;
-        //if (First_Arrow == 0 && Input.GetKey(KeyCode.RightArrow)) First_Arrow = 2;
-        //if (First_Arrow == 0 && Input.GetKey(KeyCode.UpArrow)) First_Arrow = 3;
-        //if (First_Arrow == 0 && Input.GetKey(KeyCode.DownArrow)) First_Arrow = 4;
+        Moving();
+    }
 
-        //if (First_Arrow == 1 && Input.GetKey(KeyCode.LeftArrow))
-        //{
-        //    transform.Translate(new Vector2(-speed, 0) * Time.deltaTime);
-        //    ac.SetTrigger("LeftMove");
-        //    Debug.Log("i am left");
-        //}
-        //if (First_Arrow == 2 && Input.GetKey(KeyCode.RightArrow)) transform.Translate(new Vector2(speed, 0) * Time.deltaTime);
-        //if (First_Arrow == 3 && Input.GetKey(KeyCode.UpArrow)) transform.Translate(new Vector2(0, speed) * Time.deltaTime);
-        //if (First_Arrow == 4 && Input.GetKey(KeyCode.DownArrow)) transform.Translate(new Vector2(0, -speed) * Time.deltaTime);
-
-        //if ((First_Arrow == 1 && Input.GetKeyUp(KeyCode.LeftArrow))
-        //    || (First_Arrow == 2 && Input.GetKeyUp(KeyCode.RightArrow))
-        //    || (First_Arrow == 3 && Input.GetKeyUp(KeyCode.UpArrow))
-        //    || (First_Arrow == 4 && Input.GetKeyUp(KeyCode.DownArrow)))
-        //{
-        //    First_Arrow = 0;
-        //    ac.SetTrigger("Idle");
-        //    Debug.Log("i am idle");
-        //}
+    void Moving()
+    {
         playerMoving = false;
         upDownMoving = (Input.GetAxisRaw("Vertical") != 0f) ? true : false;
         leftRightMoving = (Input.GetAxisRaw("Horizontal") != 0f) ? true : false;
         //좌 우
-        if (Input.GetAxisRaw("Horizontal")>0f || Input.GetAxisRaw("Horizontal") < 0f)
+        if (Input.GetAxisRaw("Horizontal") > 0f || Input.GetAxisRaw("Horizontal") < 0f)
         {
             if (!upDownMoving || diagonalMoving)
             {
@@ -72,7 +59,7 @@ public class PlayerMoving : MonoBehaviour
                 upDownMoving = true;
                 lastMove = new Vector2(0f, Input.GetAxisRaw("Vertical"));
             }
-            
+
         }
 
         ac.SetFloat("MoveX", cureentMove.x);
@@ -81,5 +68,16 @@ public class PlayerMoving : MonoBehaviour
 
         ac.SetFloat("LastMoveX", lastMove.x);
         ac.SetFloat("LastMoveY", lastMove.y);
+    }
+
+    public void Refresh()
+    {
+
+        Sprite sprite = inventory[0].GetIcon();
+        debugText.text = sprite.name;
+        slots[0].GetComponent<Image>().sprite = sprite;
+        Color slotColor = slots[0].GetComponent<Image>().color;
+        slotColor.a = 1f;
+        slots[0].GetComponent<Image>().color = slotColor;
     }
 }

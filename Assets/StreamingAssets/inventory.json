@@ -1,0 +1,11 @@
+{
+    "target": [
+        {
+            "id": 100,
+            "name": "밀 씨앗",
+            "itemDescription": "밀을 심을 수 있다.",
+            "count": 1,
+            "type": 1
+        }
+    ]
+}

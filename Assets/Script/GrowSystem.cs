@@ -8,7 +8,7 @@ public class GrowSystem : MonoBehaviour
     private Clock clock;
     private float startTime;
     private SpriteRenderer sprite;
-    private Vector2 originalPosition;
+    private Vector3 originalPosition;
 
     private int growPhase = 1;
     private Animator ac;
@@ -18,8 +18,12 @@ public class GrowSystem : MonoBehaviour
         startTime = clock.currentTime;
         ac = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
-        originalPosition = Vector2Int.FloorToInt(transform.position); // 소수점 버림
-        CheckSpriteWidth();
+        originalPosition = transform.position;
+        if (sprite.sprite.rect.size.y > 16f)
+        {
+            originalPosition = new Vector3(originalPosition.x, originalPosition.y - 0.5f, originalPosition.z);
+        }
+
     }
 
 
@@ -32,6 +36,7 @@ public class GrowSystem : MonoBehaviour
             {
                 growPhase++;
                 ac.SetInteger("GrowPhase", growPhase);
+                
             }
         }
         CheckSpriteWidth();

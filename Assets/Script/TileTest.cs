@@ -44,6 +44,7 @@ using UnityEngine.Tilemaps;
 
                     //타일 색 바꾸기
                     this.tilemap.SetColor(v3Int, (Color.red));
+                    
                     Debug.Log(v3Int);
 
                 }
@@ -53,7 +54,7 @@ using UnityEngine.Tilemaps;
 
             }
         }
-        private void onMouseExit()
+        private void OnMouseExit()
         {
             this.tilemap.RefreshAllTiles();
 

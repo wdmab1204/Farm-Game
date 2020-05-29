@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Tilemaps;
+using System;
+
 public class Player : MonoBehaviour
 {
+    [Header("Move")]
     public float speed;
     public bool diagonalMoving;
 
@@ -15,10 +19,26 @@ public class Player : MonoBehaviour
     private Vector2 cureentMove;
     private Vector2 lastMove;
 
+    [Header("Item and Inventory")]
     public GameObject[] slots;
     [HideInInspector]
     public List<Item> inventory;
     public Text debugText;
+    public GameObject selectSign;
+    private int inventoryIndex = 0;
+    private KeyCode[] keyCodes = {
+         KeyCode.Alpha1,
+         KeyCode.Alpha2,
+         KeyCode.Alpha3,
+         KeyCode.Alpha4,
+         KeyCode.Alpha5,
+         KeyCode.Alpha6,
+         KeyCode.Alpha7,
+         KeyCode.Alpha8,
+         KeyCode.Alpha9,
+     };
+ 
+
 
     void Awake()
     {
@@ -28,6 +48,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         Moving();
+        ScrollControl();
     }
 
     void Moving()
@@ -72,12 +93,50 @@ public class Player : MonoBehaviour
 
     public void Refresh()
     {
+        foreach(Item item in inventory)
+        {
+            Sprite sprite = item.GetIcon();
+            debugText.text = sprite.name;
+            slots[0].GetComponent<Image>().sprite = sprite;
+            Color slotColor = slots[0].GetComponent<Image>().color;
+            slotColor.a = 1f;
+            slots[0].GetComponent<Image>().color = slotColor;
+        }
+        
+    }
 
-        Sprite sprite = inventory[0].GetIcon();
-        debugText.text = sprite.name;
-        slots[0].GetComponent<Image>().sprite = sprite;
-        Color slotColor = slots[0].GetComponent<Image>().color;
-        slotColor.a = 1f;
-        slots[0].GetComponent<Image>().color = slotColor;
+    public Item GetSelectItem()
+    {
+        try
+        {
+            return inventory[inventoryIndex];
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+            return null;
+        }
+        
+    }
+
+    private void ScrollControl()
+    {
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        if (scroll > 0) inventoryIndex -= 1;
+        else if (scroll < 0) inventoryIndex += 1;
+
+        if (inventoryIndex < 0) inventoryIndex = 0;
+        else if (inventoryIndex >= slots.Length) inventoryIndex = slots.Length - 1;
+
+        for (int i = 0; i < keyCodes.Length; i++)
+        {
+            if (Input.GetKeyDown(keyCodes[i]))
+            {
+                inventoryIndex = i;
+            }
+        }
+
+        selectSign.transform.position = slots[inventoryIndex].transform.position;
+        
+        
     }
 }

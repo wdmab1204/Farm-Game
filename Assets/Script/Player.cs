@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Tilemaps;
 using System;
+using UnityEngine.Tilemaps;
 
 public class Player : MonoBehaviour
 {
@@ -37,18 +37,23 @@ public class Player : MonoBehaviour
          KeyCode.Alpha8,
          KeyCode.Alpha9,
      };
- 
+
+    public GameObject[] crops;
+    public Grid grid;
+    private bool inGround =false;
 
 
     void Awake()
     {
         ac = GetComponent<Animator>();
+        
     }
 
     void Update()
     {
         Moving();
         ScrollControl();
+        if (Input.GetKeyDown("space")) UseItem();
     }
 
     void Moving()
@@ -139,4 +144,71 @@ public class Player : MonoBehaviour
         
         
     }
+
+    private void UseItem()
+    {
+        Item item = inventory[inventoryIndex];
+        switch (item.type)
+        {
+            case Item.ItemType.use:
+                if (inGround)
+                {
+                    Vector3Int tilePos = grid.WorldToCell(transform.position);
+                    Debug.Log((Vector3)tilePos);
+                    Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position, new Vector2(1.0f, 1.0f), 0);
+
+                    bool isEmpty = false;
+                    foreach(Collider2D hit in hits)
+                    {
+                        if (hit.gameObject.layer == LayerMask.NameToLayer("Cultivated Ground"))
+                        {
+                            isEmpty = true;
+                        }
+                        else if (hit.gameObject.CompareTag("Player")) continue;
+                        else
+                        {
+                            isEmpty = false;
+                            break;
+                        }
+                    }
+
+                    if (isEmpty)
+                    {
+                        GameObject obj = Instantiate(crops[item.id - 100]);
+                        obj.transform.position = tilePos;
+                    }
+
+
+                }
+                
+                
+                break;
+            case Item.ItemType.equip:
+                break;
+            case Item.ItemType.etc:
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Cultivated Ground"))
+        {
+            inGround = true;
+            Debug.Log("그라운드 안");
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Cultivated Ground"))
+        {
+            inGround = false;
+            Debug.Log("그라운드 밖");
+        }
+
+    }
+
 }

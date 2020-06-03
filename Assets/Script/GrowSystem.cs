@@ -9,7 +9,7 @@ public class GrowSystem : MonoBehaviour
     private float startTime;
     private SpriteRenderer sprite;
     private Vector3 originalPosition;
-
+    private Collider2D col2d;
     private int growPhase = 1;
     private Animator ac;
     void Start()
@@ -24,6 +24,7 @@ public class GrowSystem : MonoBehaviour
             originalPosition = new Vector3(originalPosition.x, originalPosition.y - 0.5f, originalPosition.z);
         }
 
+        col2d = transform.parent.gameObject.GetComponent<Collider2D>();
     }
 
 
@@ -36,9 +37,10 @@ public class GrowSystem : MonoBehaviour
             {
                 growPhase++;
                 ac.SetInteger("GrowPhase", growPhase);
-                
+                col2d.isTrigger = true;
             }
         }
+        else if (growPhase >= 3) col2d.isTrigger = false;
         CheckSpriteWidth();
     }
 

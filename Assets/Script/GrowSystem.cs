@@ -5,21 +5,32 @@ using UnityEngine;
 public class GrowSystem : MonoBehaviour
 {
     public int maxGrowTime;
+    [HideInInspector]
+    public int id;
+    public GameObject itemPrefab;
+
     private Clock clock;
     private float startTime;
     private SpriteRenderer sprite;
-    private Vector2 originalPosition;
-
+    private Vector3 originalPosition;
+    private Collider2D col2d;
     private int growPhase = 1;
     private Animator ac;
+
+
     void Start()
     {
         clock = FindObjectOfType<Clock>();
         startTime = clock.currentTime;
         ac = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
-        originalPosition = Vector2Int.FloorToInt(transform.position); // 소수점 버림
-        CheckSpriteWidth();
+        originalPosition = transform.position;
+        if (sprite.sprite.rect.size.y > 16f)
+        {
+            originalPosition = new Vector3(originalPosition.x, originalPosition.y - 0.5f, originalPosition.z);
+        }
+
+        col2d = transform.parent.gameObject.GetComponent<Collider2D>();
     }
 
 
@@ -32,12 +43,14 @@ public class GrowSystem : MonoBehaviour
             {
                 growPhase++;
                 ac.SetInteger("GrowPhase", growPhase);
+                col2d.isTrigger = true;
             }
         }
+        else if (growPhase >= 3) col2d.isTrigger = false;
         CheckSpriteWidth();
     }
 
-    void CheckSpriteWidth()
+    private void CheckSpriteWidth()
     {
         Vector2 spriteSize = sprite.sprite.rect.size;
         if (spriteSize.y > 16)
@@ -48,5 +61,27 @@ public class GrowSystem : MonoBehaviour
         {
             transform.position = originalPosition;
         }
+    }
+
+    public bool Harvest()
+    {
+        bool doing = false;
+        Sprite[] sprites = Resources.LoadAll<Sprite>("item");
+        foreach (Sprite sprite in sprites)
+        {
+            if (sprite.name.Equals((id+100).ToString()))
+            {
+                doing = true;
+                if (growPhase >= 3)
+                {
+                    GameObject obj = Instantiate(itemPrefab);
+                    obj.transform.position = transform.parent.position;
+                    SpriteRenderer spriteRenderer = obj.GetComponent<SpriteRenderer>();
+                    spriteRenderer.sprite = sprite;
+                }
+                break;
+            }
+        }
+        return doing;
     }
 }

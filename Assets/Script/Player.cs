@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+using UnityEngine.Tilemaps;
+
 public class Player : MonoBehaviour
 {
+    [Header("Move")]
     public float speed;
     public bool diagonalMoving;
 
@@ -15,10 +19,18 @@ public class Player : MonoBehaviour
     private Vector2 cureentMove;
     private Vector2 lastMove;
 
+    [Header("Item and Inventory")]
     public GameObject[] slots;
     [HideInInspector]
-    public List<Item> inventory;
+    public Inventory inventory;
     public Text debugText;
+    public GameObject selectSign;
+    private int index = 0;
+
+    public GameObject[] crops;
+    public Grid grid;
+    private bool inGround =false;
+
 
     void Awake()
     {
@@ -28,6 +40,9 @@ public class Player : MonoBehaviour
     void Update()
     {
         Moving();
+        index = inventory.ScrollControl(Input.GetAxis("Mouse ScrollWheel"));
+        selectSign.transform.position = slots[index].transform.position;
+        if (Input.GetKeyDown("space")) UseItem();
     }
 
     void Moving()
@@ -72,12 +87,180 @@ public class Player : MonoBehaviour
 
     public void Refresh()
     {
+        //for(int i=0; i<slots.Length; i++)
+        //{
+        //    Sprite sprite;
+        //    float colorAlphaValue;
+        //    if (inventory.Count <= 0)
+        //    {
+        //        sprite = null;
+        //        colorAlphaValue = 0f;
+        //    }
+        //    else
+        //    {
+        //        sprite = inventory?[i].GetIcon();
+        //        colorAlphaValue = 1f;
+        //    }
 
-        Sprite sprite = inventory[0].GetIcon();
-        debugText.text = sprite.name;
-        slots[0].GetComponent<Image>().sprite = sprite;
-        Color slotColor = slots[0].GetComponent<Image>().color;
-        slotColor.a = 1f;
-        slots[0].GetComponent<Image>().color = slotColor;
+
+        //    slots[i].GetComponent<Image>().sprite = sprite;
+        //    Color slotColor = slots[i].GetComponent<Image>().color;
+        //    slotColor.a = colorAlphaValue;
+        //    slots[i].GetComponent<Image>().color = slotColor;
+        //}
+        if (inventory.Count <= 0)
+        {
+            for(int i=0; i<slots.Length; i++)
+            {
+                slots[i].GetComponent<Image>().sprite = null;
+                Color slotColor = slots[i].GetComponent<Image>().color;
+                slotColor.a = 0f;
+                slots[i].GetComponent<Image>().color = slotColor;
+            }
+        }
+        else
+        {
+            
+            for (int i=0; i<slots.Length; i++)
+            {
+                Sprite sprite;
+                float colorAlphaValue = 1f;
+                if (inventory.Count <= i)
+                {
+                    sprite = null;
+                    colorAlphaValue = 0f;
+                }
+                else
+                {
+                    sprite = inventory[i].GetIcon();
+                }
+                
+                
+
+                slots[i].GetComponent<Image>().sprite = sprite;
+                Color slotColor = slots[i].GetComponent<Image>().color;
+                slotColor.a = colorAlphaValue;
+                slots[i].GetComponent<Image>().color = slotColor;
+            }
+        }
+        
     }
+
+
+    //private void ScrollControl()
+    //{
+    //    float scroll = Input.GetAxis("Mouse ScrollWheel");
+    //    if (scroll > 0) inventoryIndex -= 1;
+    //    else if (scroll < 0) inventoryIndex += 1;
+
+    //    if (inventoryIndex < 0) inventoryIndex = 0;
+    //    else if (inventoryIndex >= slots.Length) inventoryIndex = slots.Length - 1;
+
+    //    for (int i = 0; i < keyCodes.Length; i++)
+    //    {
+    //        if (Input.GetKeyDown(keyCodes[i]))
+    //        {
+    //            inventoryIndex = i;
+    //        }
+    //    }
+
+    //    selectSign.transform.position = slots[inventoryIndex].transform.position;
+    //}
+
+    private void UseItem()
+    {
+        Item item;
+        try
+        {
+            item = inventory.GetItem();
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+            return;
+        }
+
+        Vector3Int tilePos = grid.WorldToCell(transform.position);
+        Debug.Log((Vector3)tilePos);
+        Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position, new Vector2(0.5f, 0.5f), 0);
+
+        switch (item.type)
+        {
+            case Item.ItemType.use:
+                if (inGround)
+                {
+                    bool isEmpty = false;
+                    foreach(Collider2D hit in hits)
+                    {
+                        if (hit.gameObject.layer == LayerMask.NameToLayer("Cultivated Ground"))
+                        {
+                            isEmpty = true;
+                        }
+                        else if (hit.gameObject.CompareTag("Player")) continue;
+                        else {
+                            isEmpty = false;
+                            break;
+                        }
+                    }
+
+                    if (isEmpty)
+                    {
+                        GameObject obj = Instantiate(crops[item.id - 100]);
+                        obj.transform.position = tilePos;
+                        int id = inventory.GetItem().id;
+                        obj.GetComponentInChildren<GrowSystem>().id = id;
+
+                        inventory.GetItem().count -= 1;
+                        if (inventory.GetItem().count <= 0)
+                        {
+                            inventory.RemoveItem();
+                            Refresh();
+                        }
+                    }
+
+
+                }
+                
+                
+                break;
+            case Item.ItemType.equip:
+                break;
+            case Item.ItemType.etc:
+                break;
+            case Item.ItemType.tool:
+                foreach (Collider2D hit in hits)
+                {
+                    if (hit.gameObject.CompareTag("Crop"))
+                    {
+                        GrowSystem gs = hit.gameObject.GetComponentInChildren<GrowSystem>();
+                        bool b = gs.Harvest();
+                        if (b) Destroy(gs.transform.parent.gameObject);
+                        break;
+                    }
+                }
+                
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Cultivated Ground"))
+        {
+            inGround = true;
+            Debug.Log("그라운드 안");
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Cultivated Ground"))
+        {
+            inGround = false;
+            Debug.Log("그라운드 밖");
+        }
+
+    }
+
 }

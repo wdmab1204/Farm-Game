@@ -15,7 +15,8 @@ public class Item
     {
         equip,
         use,
-        etc
+        etc,
+        tool
     }
 
     public Item(int id, string name, string itemDescription, ItemType type, int count = 1) {
@@ -24,6 +25,15 @@ public class Item
         this.itemDescription = itemDescription;
         this.type = type;
         this.count = count;
+    }
+
+    public Item(ItemScriptableObject obj)
+    {
+        this.id = obj.id;
+        this.name = obj.name;
+        this.itemDescription = obj.description;
+        this.type = obj.type;
+        this.count = obj.count;
     }
 
     public void SetIcon()

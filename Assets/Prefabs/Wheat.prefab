@@ -99,6 +99,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxGrowTime: 15
+  id: 0
+  itemPrefab: {fileID: 7511321187926518852, guid: 37387a1e8dc899e46bbbacba2f6bd054,
+    type: 3}
 --- !u!95 &552433494328113493
 Animator:
   serializedVersion: 3
@@ -205,6 +208,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fc8a1ce36bacd143a05a16abe15b21d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  x: 1
+  y: 1
 --- !u!1 &552433495595812424
 GameObject:
   m_ObjectHideFlags: 0

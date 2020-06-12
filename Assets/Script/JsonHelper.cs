@@ -21,15 +21,25 @@ public class JsonHelper : MonoBehaviour
     public Text debugText;
     Player player;
 
+    public ItemScriptableObject itemobj;
+
     // Start is called before the first frame update
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
-     void Start()
+    void Start()
     {
         LoadJson();
+    }
+
+    [ContextMenu("AddItem")]
+    public void AddItem()
+    {
+        Item item = new Item(itemobj);
+        player.inventory.Add(item);
+        SaveJson();
     }
 
     [ContextMenu("SaveJson")]
@@ -45,7 +55,7 @@ public class JsonHelper : MonoBehaviour
         try
         {
             string jdata = File.ReadAllText(Application.streamingAssetsPath + "/inventory.json");
-            player.inventory = JsonUtility.FromJson<Serialization<Item>>(jdata).ToList();
+            player.inventory = new Inventory(JsonUtility.FromJson<Serialization<Item>>(jdata).ToList());
         }
         catch(Exception e)
         {

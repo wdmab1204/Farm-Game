@@ -64,22 +64,25 @@ TextureImporter:
     second: 209
   - first:
       213: 1334190586553207169
-    second: 110
+    second: 300
   - first:
       213: 2344620692848397661
-    second: 111
+    second: 301
   - first:
       213: -4814175365877213284
-    second: 112
+    second: 302
   - first:
       213: 2019905404193892376
-    second: 113
+    second: 303
   - first:
       213: -4175181605319068748
-    second: 114
+    second: 304
   - first:
       213: 8960105370296569872
-    second: 115
+    second: 305
+  - first:
+      213: 404088134501031484
+    second: 400
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -585,7 +588,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 110
+      name: 300
       rect:
         serializedVersion: 2
         x: 3
@@ -606,7 +609,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 111
+      name: 301
       rect:
         serializedVersion: 2
         x: 19
@@ -627,7 +630,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 112
+      name: 302
       rect:
         serializedVersion: 2
         x: 35
@@ -648,7 +651,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 113
+      name: 303
       rect:
         serializedVersion: 2
         x: 51
@@ -669,7 +672,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 114
+      name: 304
       rect:
         serializedVersion: 2
         x: 67
@@ -690,7 +693,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 115
+      name: 305
       rect:
         serializedVersion: 2
         x: 83
@@ -706,6 +709,27 @@ TextureImporter:
       bones: []
       spriteID: 010d8929c50b85c70800000000000000
       internalID: 8960105370296569872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 400
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 259
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3e52e2740c9b9500800000000000000
+      internalID: 404088134501031484
       vertices: []
       indices: 
       edges: []

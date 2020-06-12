@@ -547,6 +547,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugText: {fileID: 1961405461}
+  itemobj: {fileID: 11400000, guid: 811465c6d5ba0ca4ba27fc4a9f92464e, type: 2}
 --- !u!4 &739788678
 Transform:
   m_ObjectHideFlags: 0
@@ -2526,7 +2527,7 @@ RectTransform:
   m_GameObject: {fileID: 856803013}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 1439027320}
   m_Father: {fileID: 1116213152}
@@ -2695,7 +2696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -4303,7 +4304,6 @@ MonoBehaviour:
   - {fileID: 2134320913}
   - {fileID: 2080613195}
   - {fileID: 1891653598}
-  inventory: []
   debugText: {fileID: 1961405461}
   selectSign: {fileID: 1275855032}
   crops:
@@ -4369,7 +4369,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.1, y: 0.1}
+  m_Size: {x: 0.01, y: 0.01}
   m_EdgeRadius: 0
 --- !u!114 &1855377624
 MonoBehaviour:
@@ -4383,8 +4383,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fc8a1ce36bacd143a05a16abe15b21d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  x: 1
-  y: 1
+  x: 0.5
+  y: 0.5
 --- !u!1 &1882041638
 GameObject:
   m_ObjectHideFlags: 0
@@ -4637,7 +4637,7 @@ RectTransform:
   m_GameObject: {fileID: 2007350830}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 1294163711}
   - {fileID: 1882041639}

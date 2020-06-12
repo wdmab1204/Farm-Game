@@ -182,6 +182,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxGrowTime: 3
+  id: 0
+  itemPrefab: {fileID: 7511321187926518852, guid: 37387a1e8dc899e46bbbacba2f6bd054,
+    type: 3}
 --- !u!95 &99992879943806275
 Animator:
   serializedVersion: 3

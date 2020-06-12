@@ -9,5 +9,5 @@ public class ItemScriptableObject : ScriptableObject
     public new string name;
     public string description;
     public Item.ItemType type;
-    public Animator anim;
+    public int count;
 }

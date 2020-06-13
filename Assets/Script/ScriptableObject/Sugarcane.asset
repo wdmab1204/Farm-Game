@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: Sugarcane
   m_EditorClassIdentifier: Assembly-CSharp::ItemScriptableObject
-  id: 0
-  name: 
-  description: 
-  type: 0
-  count: 0
+  id: 201
+  name: "\uC0AC\uD0D5\uC218\uC218"
+  description: "\uC0AC\uD0D5\uC218\uC218\uC774\uB2E4."
+  type: 2
+  count: 1

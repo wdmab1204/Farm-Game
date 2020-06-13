@@ -29,11 +29,6 @@ public class JsonHelper : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
-    void Start()
-    {
-        LoadJson();
-    }
-
     [ContextMenu("AddItem")]
     public void AddItem()
     {
@@ -45,7 +40,7 @@ public class JsonHelper : MonoBehaviour
     [ContextMenu("SaveJson")]
     public void SaveJson()
     {
-        string jdata = JsonUtility.ToJson(new Serialization<Item>(player.inventory), prettyPrint: true);
+        string jdata = JsonUtility.ToJson(new Serialization<Item>(player.inventory.list), prettyPrint: true);
         File.WriteAllText(Application.streamingAssetsPath + "/inventory.json", jdata);
     }
 
@@ -55,20 +50,16 @@ public class JsonHelper : MonoBehaviour
         try
         {
             string jdata = File.ReadAllText(Application.streamingAssetsPath + "/inventory.json");
-            player.inventory = new Inventory(JsonUtility.FromJson<Serialization<Item>>(jdata).ToList());
+            List<Item> list = JsonUtility.FromJson<Serialization<Item>>(jdata).ToList();
+            player.inventory.list = list;
         }
         catch(Exception e)
         {
             Debug.Log(e.ToString());
         }
         
-        
-        for(int i=0; i<player.inventory.Count; i++)
-        {
-            player.inventory[i].SetIcon();
-        }
-        debugText.text = player.inventory[0].name;
-        player.inventory.Refresh(ref player.slots);
+        debugText.text = player.inventory.list[0].name;
+        player.inventory.Refresh();
         
     }
 }

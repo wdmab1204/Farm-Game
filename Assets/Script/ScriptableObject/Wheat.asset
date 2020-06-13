@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: Wheat
   m_EditorClassIdentifier: Assembly-CSharp::ItemScriptableObject
-  id: 0
-  name: 
-  description: 
-  type: 0
-  count: 0
+  id: 200
+  name: "\uBC00"
+  description: "\uBC00\uC774\uB2E4"
+  type: 2
+  count: 1

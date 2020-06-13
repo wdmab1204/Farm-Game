@@ -34,6 +34,7 @@ public class Item
         this.itemDescription = obj.description;
         this.type = obj.type;
         this.count = obj.count;
+        SetIcon();
     }
 
     public void SetIcon()
@@ -57,6 +58,11 @@ public class Item
     public Sprite GetIcon()
     {
         return icon;
+    }
+
+    public object Copy()
+    {
+        return this.MemberwiseClone();
     }
 
 }

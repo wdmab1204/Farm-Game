@@ -5,8 +5,7 @@ using UnityEngine;
 public class GrowSystem : MonoBehaviour
 {
     public int maxGrowTime;
-    [HideInInspector]
-    public int id;
+    public Item item;
     public GameObject itemPrefab;
 
     private Clock clock;
@@ -20,6 +19,7 @@ public class GrowSystem : MonoBehaviour
 
     void Start()
     {
+        Debug.Log(itemPrefab);
         clock = FindObjectOfType<Clock>();
         startTime = clock.currentTime;
         ac = GetComponent<Animator>();
@@ -69,7 +69,7 @@ public class GrowSystem : MonoBehaviour
         Sprite[] sprites = Resources.LoadAll<Sprite>("item");
         foreach (Sprite sprite in sprites)
         {
-            if (sprite.name.Equals((id+100).ToString()))
+            if (sprite.name.Equals((item.id+100).ToString()))
             {
                 doing = true;
                 if (growPhase >= 3)
@@ -78,6 +78,10 @@ public class GrowSystem : MonoBehaviour
                     obj.transform.position = transform.parent.position;
                     SpriteRenderer spriteRenderer = obj.GetComponent<SpriteRenderer>();
                     spriteRenderer.sprite = sprite;
+
+                    DropItem di = obj.GetComponent<DropItem>();
+                    di.item = ItemManager.Instanse.GetItem(item.id + 100);
+                    di.item.SetIcon();
                 }
                 break;
             }

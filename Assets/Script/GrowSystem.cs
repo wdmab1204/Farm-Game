@@ -81,7 +81,6 @@ public class GrowSystem : MonoBehaviour
 
                     DropItem di = obj.GetComponent<DropItem>();
                     di.item = ItemManager.Instanse.GetItem(item.id + 100);
-                    di.item.SetIcon();
                 }
                 break;
             }

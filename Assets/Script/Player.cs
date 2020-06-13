@@ -20,28 +20,29 @@ public class Player : MonoBehaviour
     private Vector2 lastMove;
 
     [Header("Item and Inventory")]
-    public GameObject[] slots;
-    [HideInInspector]
+    //public GameObject[] slots;
     public Inventory inventory;
     public Text debugText;
-    public GameObject selectSign;
-    private int index = 0;
+    //public GameObject selectSign;
 
     public GameObject[] crops;
     public Grid grid;
     private bool inGround = false;
+    private JsonHelper jsonHelper;
 
     void Awake()
     {
         ac = GetComponent<Animator>();
+        jsonHelper = FindObjectOfType<JsonHelper>();
+        jsonHelper.LoadJson();
     }
 
 
     void Update()
     {
         Moving();
-        index = inventory.ScrollControl(Input.GetAxis("Mouse ScrollWheel"));
-        selectSign.transform.position = slots[index].transform.position;
+        //index = inventory.ScrollControl(Input.GetAxis("Mouse ScrollWheel"));
+        //selectSign.transform.position = slots[index].transform.position;
         if (Input.GetKeyDown("space")) UseItem();
     }
 
@@ -130,8 +131,8 @@ public class Player : MonoBehaviour
                         if (inventory.GetItem().count <= 0)
                         {
                             inventory.RemoveItem();
-                            inventory.Refresh(ref slots);
                         }
+                        inventory.Refresh();
                     }
 
 
@@ -172,7 +173,7 @@ public class Player : MonoBehaviour
         {
             Item item = collision.gameObject.GetComponent<DropItem>().item;
             inventory.Add(item);
-            inventory.Refresh(ref slots);
+            inventory.Refresh();
             Debug.Log("아이템 습득" + item.name);
             Destroy(collision.gameObject);
         }

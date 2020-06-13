@@ -9,6 +9,30 @@ public class Item
     public string itemDescription;
     public int count;
     private Sprite icon;
+    public Sprite Icon
+    {
+        get
+        {
+            if (icon == null)
+            {
+                Sprite[] sprites = Resources.LoadAll<Sprite>("item");
+                foreach (Sprite sprite in sprites)
+                {
+                    if (sprite.name.Equals(id.ToString()))
+                    {
+                        this.icon = sprite;
+                        break;
+                    }
+                }
+
+                if (icon == null)
+                {
+                    throw new System.NullReferenceException();
+                }
+            }
+            return icon;
+        }
+    }
     public ItemType type;
 
     public enum ItemType
@@ -34,31 +58,14 @@ public class Item
         this.itemDescription = obj.description;
         this.type = obj.type;
         this.count = obj.count;
-        SetIcon();
+        //SetIcon();
     }
 
-    public void SetIcon()
-    {
-        Sprite[] sprites = Resources.LoadAll<Sprite>("item");
-        foreach (Sprite sprite in sprites)
-        {
-            if (sprite.name.Equals(id.ToString()))
-            {
-                this.icon = sprite;
-                break;
-            }
-        }
-
-        if (icon == null)
-        {
-            throw new System.NullReferenceException();
-        }
-    }
-
-    public Sprite GetIcon()
-    {
-        return icon;
-    }
+    //public Sprite GetIcon()
+    //{
+    //    if(icon==null) SetIcon();
+    //    return icon;
+    //}
 
     public object Copy()
     {

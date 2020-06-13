@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Inventory : List<Item>
+public class Inventory : MonoBehaviour
 {
     private int index;
     private readonly KeyCode[] keyCodes = {
@@ -17,29 +17,38 @@ public class Inventory : List<Item>
          KeyCode.Alpha8,
          KeyCode.Alpha9,
      };
+    public List<Item> list;
+    public GameObject[] slots;
+    public GameObject selectSign;
 
-    public Inventory(List<Item> list)
+
+    private void Update()
     {
-        foreach(Item item in list)
-        {
-            this.Add(item);
-        }
+        index = ScrollControl(Input.GetAxis("Mouse ScrollWheel"));
+        selectSign.transform.position = slots[index].transform.position;
     }
 
     public Item GetItem()
     {
-        return this[index];
+        return list[index];
     }
 
     public void RemoveItem()
     {
-        Remove(this[index]);
+        list.RemoveAt(index);
     }
 
-    public new void Add(Item item)
+    public void Add(Item item)
     {
-        
-        base.Add(item);
+        for(int i=0; i<list.Count; i++)
+        {
+            if(list[i].id == item.id)
+            {
+                list[i].count += item.count;
+                return;
+            }
+        }
+        list.Add(item);
     }
 
     public int ScrollControl(float scroll, int max = 9)
@@ -59,13 +68,12 @@ public class Inventory : List<Item>
             }
         }
 
-        //selectSign.transform.position = slots[inventoryIndex].transform.position;
         return index;
     }
 
-    public void Refresh(ref GameObject[] slots)
+    public void Refresh()
     {
-        if (Count <= 0)
+        if (list.Count <= 0)
         {
             for (int i = 0; i < slots.Length; i++)
             {
@@ -73,6 +81,8 @@ public class Inventory : List<Item>
                 Color slotColor = slots[i].GetComponent<Image>().color;
                 slotColor.a = 0f;
                 slots[i].GetComponent<Image>().color = slotColor;
+
+                slots[i].transform.GetChild(0).GetComponent<Text>().text = "";
             }
         }
         else
@@ -82,20 +92,25 @@ public class Inventory : List<Item>
             {
                 Sprite sprite;
                 float colorAlphaValue = 1f;
-                if (Count <= i)
+                string countString = "";
+                if (list.Count <= i)
                 {
                     sprite = null;
                     colorAlphaValue = 0f;
                 }
                 else
                 {
-                    sprite = this[i].GetIcon();
+                    sprite = list[i].Icon;
+
+                    if (list[i].type != Item.ItemType.tool)
+                        countString = list[i].count.ToString();
                 }
 
                 slots[i].GetComponent<Image>().sprite = sprite;
                 Color slotColor = slots[i].GetComponent<Image>().color;
                 slotColor.a = colorAlphaValue;
                 slots[i].GetComponent<Image>().color = slotColor;
+                slots[i].transform.GetChild(0).GetComponent<Text>().text = countString;
             }
         }
 

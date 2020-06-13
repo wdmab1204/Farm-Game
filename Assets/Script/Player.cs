@@ -29,13 +29,13 @@ public class Player : MonoBehaviour
 
     public GameObject[] crops;
     public Grid grid;
-    private bool inGround =false;
-
+    private bool inGround = false;
 
     void Awake()
     {
         ac = GetComponent<Animator>();
     }
+
 
     void Update()
     {
@@ -85,88 +85,6 @@ public class Player : MonoBehaviour
         ac.SetFloat("LastMoveY", lastMove.y);
     }
 
-    public void Refresh()
-    {
-        //for(int i=0; i<slots.Length; i++)
-        //{
-        //    Sprite sprite;
-        //    float colorAlphaValue;
-        //    if (inventory.Count <= 0)
-        //    {
-        //        sprite = null;
-        //        colorAlphaValue = 0f;
-        //    }
-        //    else
-        //    {
-        //        sprite = inventory?[i].GetIcon();
-        //        colorAlphaValue = 1f;
-        //    }
-
-
-        //    slots[i].GetComponent<Image>().sprite = sprite;
-        //    Color slotColor = slots[i].GetComponent<Image>().color;
-        //    slotColor.a = colorAlphaValue;
-        //    slots[i].GetComponent<Image>().color = slotColor;
-        //}
-        if (inventory.Count <= 0)
-        {
-            for(int i=0; i<slots.Length; i++)
-            {
-                slots[i].GetComponent<Image>().sprite = null;
-                Color slotColor = slots[i].GetComponent<Image>().color;
-                slotColor.a = 0f;
-                slots[i].GetComponent<Image>().color = slotColor;
-            }
-        }
-        else
-        {
-            
-            for (int i=0; i<slots.Length; i++)
-            {
-                Sprite sprite;
-                float colorAlphaValue = 1f;
-                if (inventory.Count <= i)
-                {
-                    sprite = null;
-                    colorAlphaValue = 0f;
-                }
-                else
-                {
-                    sprite = inventory[i].GetIcon();
-                }
-                
-                
-
-                slots[i].GetComponent<Image>().sprite = sprite;
-                Color slotColor = slots[i].GetComponent<Image>().color;
-                slotColor.a = colorAlphaValue;
-                slots[i].GetComponent<Image>().color = slotColor;
-            }
-        }
-        
-    }
-
-
-    //private void ScrollControl()
-    //{
-    //    float scroll = Input.GetAxis("Mouse ScrollWheel");
-    //    if (scroll > 0) inventoryIndex -= 1;
-    //    else if (scroll < 0) inventoryIndex += 1;
-
-    //    if (inventoryIndex < 0) inventoryIndex = 0;
-    //    else if (inventoryIndex >= slots.Length) inventoryIndex = slots.Length - 1;
-
-    //    for (int i = 0; i < keyCodes.Length; i++)
-    //    {
-    //        if (Input.GetKeyDown(keyCodes[i]))
-    //        {
-    //            inventoryIndex = i;
-    //        }
-    //    }
-
-    //    selectSign.transform.position = slots[inventoryIndex].transform.position;
-    //}
-
     private void UseItem()
     {
         Item item;
@@ -206,14 +124,13 @@ public class Player : MonoBehaviour
                     {
                         GameObject obj = Instantiate(crops[item.id - 100]);
                         obj.transform.position = tilePos;
-                        int id = inventory.GetItem().id;
-                        obj.GetComponentInChildren<GrowSystem>().id = id;
+                        obj.GetComponentInChildren<GrowSystem>().item = item;
 
                         inventory.GetItem().count -= 1;
                         if (inventory.GetItem().count <= 0)
                         {
                             inventory.RemoveItem();
-                            Refresh();
+                            inventory.Refresh(ref slots);
                         }
                     }
 
@@ -251,7 +168,16 @@ public class Player : MonoBehaviour
             inGround = true;
             Debug.Log("그라운드 안");
         }
+        if (collision.gameObject.CompareTag("DropItem"))
+        {
+            Item item = collision.gameObject.GetComponent<DropItem>().item;
+            inventory.Add(item);
+            inventory.Refresh(ref slots);
+            Debug.Log("아이템 습득" + item.name);
+            Destroy(collision.gameObject);
+        }
     }
+
 
     private void OnTriggerExit2D(Collider2D collision)
     {

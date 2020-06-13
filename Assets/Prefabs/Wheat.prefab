@@ -98,8 +98,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17bff0ac01d71d245b8d81af1d6e7029, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxGrowTime: 15
-  id: 0
+  maxGrowTime: 3
+  item:
+    id: 0
+    name: 
+    itemDescription: 
+    count: 0
+    type: 0
   itemPrefab: {fileID: 7511321187926518852, guid: 37387a1e8dc899e46bbbacba2f6bd054,
     type: 3}
 --- !u!95 &552433494328113493

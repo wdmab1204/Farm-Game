@@ -68,7 +68,7 @@ public class JsonHelper : MonoBehaviour
             player.inventory[i].SetIcon();
         }
         debugText.text = player.inventory[0].name;
-        player.Refresh();
+        player.inventory.Refresh(ref player.slots);
         
     }
 }

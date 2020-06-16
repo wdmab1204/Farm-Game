@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: shovel
+  m_Name: 201_Sugarcane
   m_EditorClassIdentifier: Assembly-CSharp::ItemScriptableObject
-  id: 400
-  name: "\uC0BD"
-  description: "\uC791\uBB3C\uC744 \uCE98\uC218 \uC788\uB294 \uB3C4\uAD6C\uC774\uB2E4."
-  type: 3
+  id: 201
+  name: "\uC0AC\uD0D5\uC218\uC218"
+  description: "\uC0AC\uD0D5\uC218\uC218\uC774\uB2E4."
+  type: 2
+  count: 1

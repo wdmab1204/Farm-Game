@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: Wheat
+  m_Name: 400_shovel
   m_EditorClassIdentifier: Assembly-CSharp::ItemScriptableObject
-  id: 200
-  name: "\uBC00"
-  description: "\uBC00\uC774\uB2E4"
-  type: 2
-  count: 1
+  id: 400
+  name: "\uC0BD"
+  description: "\uC791\uBB3C\uC744 \uCE98\uC218 \uC788\uB294 \uB3C4\uAD6C\uC774\uB2E4."
+  type: 3
+  count: 0

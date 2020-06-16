@@ -183,11 +183,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxGrowTime: 3
   item:
-    id: 0
-    name: 
-    itemDescription: 
-    count: 0
-    type: 0
+    id: 100
+    name: "\uBC00 \uC528\uC557"
+    itemDescription: "\uBC00\uC744 \uC2EC\uC744 \uC218 \uC788\uB2E4."
+    count: 1
+    type: 1
   itemPrefab: {fileID: 7511321187926518852, guid: 37387a1e8dc899e46bbbacba2f6bd054,
     type: 3}
 --- !u!95 &99992879943806275
@@ -263,7 +263,7 @@ GameObject:
   - component: {fileID: -6696506439257975617}
   - component: {fileID: 5543112320320964561}
   m_Layer: 0
-  m_Name: Sugarcane
+  m_Name: 100
   m_TagString: Crop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -277,7 +277,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 99992880169379756}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -2, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 99992879943806273}

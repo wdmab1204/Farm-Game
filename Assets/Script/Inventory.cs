@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,24 +18,18 @@ public class Inventory : MonoBehaviour
          KeyCode.Alpha9,
      };
     public List<Item> list;
-    public GameObject[] slots;
+    public Slot[] slots;
     public GameObject selectSign;
 
 
-    private void Update()
-    {
-        index = ScrollControl(Input.GetAxis("Mouse ScrollWheel"));
-        selectSign.transform.position = slots[index].transform.position;
-    }
-
     public Item GetItem()
     {
-        return list[index];
+        return slots[index].item;
     }
 
     public void RemoveItem()
     {
-        list.RemoveAt(index);
+        slots[index].RemoveItem();
     }
 
     public void Add(Item item)
@@ -51,7 +45,7 @@ public class Inventory : MonoBehaviour
         list.Add(item);
     }
 
-    public int ScrollControl(float scroll, int max = 9)
+    public void ScrollControl(float scroll, int max = 9)
     {
 
         if (scroll > 0) index -= 1;
@@ -68,7 +62,7 @@ public class Inventory : MonoBehaviour
             }
         }
 
-        return index;
+        selectSign.transform.position = slots[index].transform.position;
     }
 
     public void Refresh()
@@ -77,12 +71,13 @@ public class Inventory : MonoBehaviour
         {
             for (int i = 0; i < slots.Length; i++)
             {
-                slots[i].GetComponent<Image>().sprite = null;
-                Color slotColor = slots[i].GetComponent<Image>().color;
+                slots[i].Img.sprite = null;
+                slots[i].item = null;
+                Color slotColor = slots[i].Img.color;
                 slotColor.a = 0f;
-                slots[i].GetComponent<Image>().color = slotColor;
+                slots[i].Img.color = slotColor;
 
-                slots[i].transform.GetChild(0).GetComponent<Text>().text = "";
+                slots[i].text.text = "";
             }
         }
         else
@@ -101,18 +96,130 @@ public class Inventory : MonoBehaviour
                 else
                 {
                     sprite = list[i].Icon;
-
+                    slots[i].item = list[i];
                     if (list[i].type != Item.ItemType.tool)
                         countString = list[i].count.ToString();
                 }
 
-                slots[i].GetComponent<Image>().sprite = sprite;
-                Color slotColor = slots[i].GetComponent<Image>().color;
+                slots[i].Img.sprite = sprite;
+                Color slotColor = slots[i].Img.color;
                 slotColor.a = colorAlphaValue;
-                slots[i].GetComponent<Image>().color = slotColor;
-                slots[i].transform.GetChild(0).GetComponent<Text>().text = countString;
+                slots[i].Img.color = slotColor;
+                slots[i].text.text = countString;
             }
         }
 
+    }
+
+    /// <summary>
+    /// 아이템을 ui상 인벤토리에 추가합니다.
+    /// </summary>
+    /// <param name="item">추가할 아이템</param>
+    /// <param name="count">아이템의 증감수치를 나타냅니다, count값만큼 기존 아이템의 개수를 더하거나 뺍니다.</param>
+    public void Refresh(Item item, int count = 1)
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].item == null)
+            {
+                slots[i].SetSlot(item);
+                Debug.Log(slots[i].item);
+                break;
+            }
+            else if (slots[i].item.id == item.id)
+            {
+
+                slots[i].text.text = (slots[i].item.count + count).ToString();
+                slots[i].item.count = slots[i].item.count + count;
+                if (slots[i].item.count <= 0)
+                {
+                    RemoveItem();
+                }
+                Debug.Log(slots[i].item);
+                break;
+            }
+        }
+    }
+
+    public void ListUpdate()
+    {
+        List<Item> list = new List<Item>();
+        for(int i=0; i<slots.Length; i++)
+        {
+            Item item = slots[i].item;
+            list.Add(item);
+        }
+        this.list = new List<Item>(list);
+    }
+
+    public void UseItem(bool inGround, Grid grid, Transform playerTransform)
+    {
+        Item item;
+        try
+        {
+            item = (Item)GetItem().Clone();
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+            return;
+        }
+
+        Vector3Int tilePos = grid.WorldToCell(playerTransform.position);
+        Debug.Log((Vector3)tilePos);
+        Collider2D[] hits = Physics2D.OverlapBoxAll(playerTransform.position, new Vector2(0.5f, 0.5f), 0);
+
+        switch (item.type)
+        {
+            case Item.ItemType.use:
+                if (inGround)
+                {
+                    bool isEmpty = false;
+                    foreach (Collider2D hit in hits)
+                    {
+                        if (hit.gameObject.layer == LayerMask.NameToLayer("Cultivated Ground"))
+                        {
+                            isEmpty = true;
+                        }
+                        else if (hit.gameObject.CompareTag("Player")) continue;
+                        else
+                        {
+                            isEmpty = false;
+                            break;
+                        }
+                    }
+
+                    if (isEmpty)
+                    {
+                        GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/" + item.id));
+                        obj.transform.position = tilePos;
+                        obj.GetComponentInChildren<GrowSystem>().item = item;
+
+                        //item.count = -1;
+                        Refresh(item, -1);
+                    }
+                }
+
+
+                break;
+            case Item.ItemType.equip:
+                break;
+            case Item.ItemType.etc:
+                break;
+            case Item.ItemType.tool:
+                foreach (Collider2D hit in hits)
+                {
+                    if (hit.gameObject.CompareTag("Crop"))
+                    {
+                        GrowSystem gs = hit.gameObject.GetComponentInChildren<GrowSystem>();
+                        bool b = gs.Harvest();
+                        if (b) Destroy(gs.transform.parent.gameObject);
+                        break;
+                    }
+                }
+
+                break;
+            default:
+                break;
+        }
     }
 }

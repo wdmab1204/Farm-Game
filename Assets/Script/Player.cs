@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public float speed;
     public bool diagonalMoving;
 
+    [Header("Animation")]
     private Animator ac;
     private bool playerMoving;
     private bool upDownMoving;
@@ -19,31 +20,30 @@ public class Player : MonoBehaviour
     private Vector2 cureentMove;
     private Vector2 lastMove;
 
-    [Header("Item and Inventory")]
-    //public GameObject[] slots;
+    [Header("Inventory")]
     public Inventory inventory;
     public Text debugText;
-    //public GameObject selectSign;
 
     public GameObject[] crops;
     public Grid grid;
     private bool inGround = false;
-    private JsonHelper jsonHelper;
 
     void Awake()
     {
         ac = GetComponent<Animator>();
-        jsonHelper = FindObjectOfType<JsonHelper>();
-        jsonHelper.LoadJson();
     }
 
+
+    private void Start()
+    {
+        JsonHelper.LoadJson();
+    }
 
     void Update()
     {
         Moving();
-        //index = inventory.ScrollControl(Input.GetAxis("Mouse ScrollWheel"));
-        //selectSign.transform.position = slots[index].transform.position;
-        if (Input.GetKeyDown("space")) UseItem();
+        inventory.ScrollControl(Input.GetAxis("Mouse ScrollWheel"));
+        if (Input.GetKeyDown("space")) inventory.UseItem(inGround, grid, transform);
     }
 
     void Moving()
@@ -86,82 +86,6 @@ public class Player : MonoBehaviour
         ac.SetFloat("LastMoveY", lastMove.y);
     }
 
-    private void UseItem()
-    {
-        Item item;
-        try
-        {
-            item = inventory.GetItem();
-        }
-        catch (ArgumentOutOfRangeException)
-        {
-            return;
-        }
-
-        Vector3Int tilePos = grid.WorldToCell(transform.position);
-        Debug.Log((Vector3)tilePos);
-        Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position, new Vector2(0.5f, 0.5f), 0);
-
-        switch (item.type)
-        {
-            case Item.ItemType.use:
-                if (inGround)
-                {
-                    bool isEmpty = false;
-                    foreach(Collider2D hit in hits)
-                    {
-                        if (hit.gameObject.layer == LayerMask.NameToLayer("Cultivated Ground"))
-                        {
-                            isEmpty = true;
-                        }
-                        else if (hit.gameObject.CompareTag("Player")) continue;
-                        else {
-                            isEmpty = false;
-                            break;
-                        }
-                    }
-
-                    if (isEmpty)
-                    {
-                        GameObject obj = Instantiate(crops[item.id - 100]);
-                        obj.transform.position = tilePos;
-                        obj.GetComponentInChildren<GrowSystem>().item = item;
-
-                        inventory.GetItem().count -= 1;
-                        if (inventory.GetItem().count <= 0)
-                        {
-                            inventory.RemoveItem();
-                        }
-                        inventory.Refresh();
-                    }
-
-
-                }
-                
-                
-                break;
-            case Item.ItemType.equip:
-                break;
-            case Item.ItemType.etc:
-                break;
-            case Item.ItemType.tool:
-                foreach (Collider2D hit in hits)
-                {
-                    if (hit.gameObject.CompareTag("Crop"))
-                    {
-                        GrowSystem gs = hit.gameObject.GetComponentInChildren<GrowSystem>();
-                        bool b = gs.Harvest();
-                        if (b) Destroy(gs.transform.parent.gameObject);
-                        break;
-                    }
-                }
-                
-                break;
-            default:
-                break;
-        }
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.layer == LayerMask.NameToLayer("Cultivated Ground"))
@@ -172,8 +96,8 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("DropItem"))
         {
             Item item = collision.gameObject.GetComponent<DropItem>().item;
-            inventory.Add(item);
-            inventory.Refresh();
+            //inventory.Add(item);
+            inventory.Refresh(item);
             Debug.Log("아이템 습득" + item.name);
             Destroy(collision.gameObject);
         }

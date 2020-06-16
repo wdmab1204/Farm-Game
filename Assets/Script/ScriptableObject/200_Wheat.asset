@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: Sugarcane
+  m_Name: 200_Wheat
   m_EditorClassIdentifier: Assembly-CSharp::ItemScriptableObject
-  id: 201
-  name: "\uC0AC\uD0D5\uC218\uC218"
-  description: "\uC0AC\uD0D5\uC218\uC218\uC774\uB2E4."
+  id: 200
+  name: "\uBC00"
+  description: "\uBC00\uC774\uB2E4"
   type: 2
   count: 1

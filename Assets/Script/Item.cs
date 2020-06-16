@@ -37,10 +37,10 @@ public class Item
 
     public enum ItemType
     {
-        equip,
-        use,
-        etc,
-        tool
+        equip, //장비
+        use, //소비
+        etc, //기타
+        tool //도구
     }
 
     public Item(int id, string name, string itemDescription, ItemType type, int count = 1) {
@@ -58,18 +58,23 @@ public class Item
         this.itemDescription = obj.description;
         this.type = obj.type;
         this.count = obj.count;
-        //SetIcon();
     }
 
-    //public Sprite GetIcon()
-    //{
-    //    if(icon==null) SetIcon();
-    //    return icon;
-    //}
-
-    public object Copy()
+    public object Clone()
     {
         return this.MemberwiseClone();
+    }
+
+    public override bool Equals(object obj)
+    {
+        Item item = (Item)obj;
+        if (id == item.id &&
+            name.Equals(item.name) &&
+            itemDescription.Equals(item.itemDescription) &&
+            type == item.type)
+            return true;
+
+        return false;
     }
 
 }

@@ -17,6 +17,10 @@ public class Slot : MonoBehaviour
         text = transform.GetChild(0).GetComponent<Text>();
     }
 
+    /// <summary>
+    /// 아이템을 슬롯에 추가합니다.
+    /// </summary>
+    /// <param name="item">슬롯에 추가할 아이템입니다. 이 변수를 기준으로 슬롯에 데이터를 추가합니다.</param>
     public void SetSlot(Item item)
     {
         string countString = "";
@@ -30,6 +34,11 @@ public class Slot : MonoBehaviour
         text.text = countString;
     }
 
+
+    /// <summary>
+    /// 슬롯에서 선택칸에 있는 아이템을 삭제합니다.
+    /// </summary>
+    /// <returns>삭제된 아이템을 반환합니다.</returns>
     public Item RemoveItem()
     {
         Item item = this.item;
@@ -40,7 +49,6 @@ public class Slot : MonoBehaviour
         Img.color = color;
         text.text = "";
 
-        
 
         return item;
     }

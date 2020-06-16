@@ -21,17 +21,27 @@ public class Inventory : MonoBehaviour
     public Slot[] slots;
     public GameObject selectSign;
 
-
+    /// <summary>
+    /// 선택된 슬롯의 아이템을 획득합니다.
+    /// </summary>
+    /// <returns>현재 선택된 아이템을 반환합니다.</returns>
     public Item GetItem()
     {
         return slots[index].item;
     }
 
+    /// <summary>
+    /// 선택슬롯을 기준으로 아이템을 삭제합니다.
+    /// </summary>
     public void RemoveItem()
     {
         slots[index].RemoveItem();
     }
 
+    /// <summary>
+    /// list에 아이템을 추가합니다. 중복이 있을 시 개수를 증가시킵니다.
+    /// </summary>
+    /// <param name="item"></param>
     public void Add(Item item)
     {
         for(int i=0; i<list.Count; i++)
@@ -45,6 +55,11 @@ public class Inventory : MonoBehaviour
         list.Add(item);
     }
 
+    /// <summary>
+    /// 변수를 통해 숫자키 입력 또는 휠 입력으로 인벤토리상의 아이템선택을 도와주는 함수입니다.
+    /// </summary>
+    /// <param name="scroll">-1이면 왼쪽, 1이면 오른쪽으로 선택칸이 이동합니다. 휠입력을 받을 시 GetAxis("Mouse ScrollWheel")을 호출하면됩니다.</param>
+    /// <param name="max">스크롤의 최대이동위치를 나타냅니다. 기본값은 9입니다.</param>
     public void ScrollControl(float scroll, int max = 9)
     {
 
@@ -65,6 +80,9 @@ public class Inventory : MonoBehaviour
         selectSign.transform.position = slots[index].transform.position;
     }
 
+    /// <summary>
+    /// list변수를 기준으로 ui상에 아이템을 추가합니다, 매개변수는 필요없습니다.
+    /// </summary>
     public void Refresh()
     {
         if (list.Count <= 0)
@@ -141,7 +159,11 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void ListUpdate()
+    /// <summary>
+    /// 현재 슬롯의 아이템들을 기준으로 리스트를 업데이트합니다, 기존의 리스트 데이터는 사라집니다.
+    /// </summary>
+    /// <returns>최종적으로 업데이트된 list를 반환합니다.</returns>
+    public List<Item> ListUpdate()
     {
         List<Item> list = new List<Item>();
         for(int i=0; i<slots.Length; i++)
@@ -150,9 +172,16 @@ public class Inventory : MonoBehaviour
             list.Add(item);
         }
         this.list = new List<Item>(list);
+        return this.list;
     }
 
-    public void UseItem(bool inGround, Grid grid, Transform playerTransform)
+    /// <summary>
+    /// 아이템을 사용합니다.
+    /// </summary>
+    /// <param name="inGround">플레이어가 경작지 안에 있는지에 대한 변수입니다. 안에있다면 true, 아니라면 false입니다.</param>
+    /// <param name="grid">grid를 통해 타일간격에 맞게 클론(작물 등)을 생성합니다.</param>
+    /// <param name="playerPosition">플레이어의 위치값을 통해 클론(작물 등)을 생성합니다.</param>
+    public void UseItem(bool inGround, Grid grid, Vector3 playerPosition)
     {
         Item item;
         try
@@ -164,9 +193,9 @@ public class Inventory : MonoBehaviour
             return;
         }
 
-        Vector3Int tilePos = grid.WorldToCell(playerTransform.position);
+        Vector3Int tilePos = grid.WorldToCell(playerPosition);
         Debug.Log((Vector3)tilePos);
-        Collider2D[] hits = Physics2D.OverlapBoxAll(playerTransform.position, new Vector2(0.5f, 0.5f), 0);
+        Collider2D[] hits = Physics2D.OverlapBoxAll(playerPosition, new Vector2(0.5f, 0.5f), 0);
 
         switch (item.type)
         {

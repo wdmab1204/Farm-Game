@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
     {
         Moving();
         inventory.ScrollControl(Input.GetAxis("Mouse ScrollWheel"));
-        if (Input.GetKeyDown("space")) inventory.UseItem(inGround, grid, transform);
+        if (Input.GetKeyDown("space")) inventory.UseItem(inGround, grid, transform.position);
     }
 
     void Moving()

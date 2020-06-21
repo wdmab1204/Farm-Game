@@ -6,13 +6,11 @@ using UnityEngine.UI;
 public class Slot : MonoBehaviour
 {
     public Item item;
-    public Grid grid { get; set; }
-    public Image Img { get; set; }
-    public Text text { get; set; }
+    public Image Img;
+    public Text text;
 
     private void Awake()
     {
-        grid = GameObject.Find("Grid").GetComponent<Grid>();
         Img = GetComponent<Image>();
         text = transform.GetChild(0).GetComponent<Text>();
     }

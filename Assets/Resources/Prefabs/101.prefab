@@ -104,6 +104,8 @@ MonoBehaviour:
     name: 
     itemDescription: 
     count: 0
+    sellingPrice: 0
+    purchasePrice: 0
     type: 0
   itemPrefab: {fileID: 7511321187926518852, guid: 37387a1e8dc899e46bbbacba2f6bd054,
     type: 3}
@@ -154,7 +156,7 @@ GameObject:
   - component: {fileID: 8633540161571565338}
   - component: {fileID: 2622428900265115016}
   m_Layer: 0
-  m_Name: Wheat
+  m_Name: 101
   m_TagString: Crop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -213,6 +215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fc8a1ce36bacd143a05a16abe15b21d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mode: 0
   x: 1
   y: 1
 --- !u!1 &552433495595812424

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
-    private int index;
+    protected int index;
     private readonly KeyCode[] keyCodes = {
          KeyCode.Alpha1,
          KeyCode.Alpha2,
@@ -77,9 +77,13 @@ public class Inventory : MonoBehaviour
             }
         }
 
-        selectSign.transform.position = slots[index].transform.position;
+        SelectSlot();
     }
 
+    virtual protected void SelectSlot()
+    {
+        selectSign.transform.position = slots[index].transform.position;
+    }
     /// <summary>
     /// list변수를 기준으로 ui상에 아이템을 추가합니다, 매개변수는 필요없습니다.
     /// </summary>

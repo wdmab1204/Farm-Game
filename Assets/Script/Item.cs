@@ -8,6 +8,9 @@ public class Item
     public string name;
     public string itemDescription;
     public int count;
+    public int sellingPrice;
+    public int purchasePrice;
+    
     private Sprite icon;
     public Sprite Icon
     {
@@ -43,12 +46,14 @@ public class Item
         tool //도구
     }
 
-    public Item(int id, string name, string itemDescription, ItemType type, int count = 1) {
+    public Item(int id, string name, string itemDescription, ItemType type,int sellingPrice, int purchasePrice, int count = 1) {
         this.id = id;
         this.name = name;
         this.itemDescription = itemDescription;
         this.type = type;
         this.count = count;
+        this.sellingPrice = sellingPrice;
+        this.purchasePrice = purchasePrice;
     }
 
     public Item(ItemScriptableObject obj)
@@ -58,6 +63,8 @@ public class Item
         this.itemDescription = obj.description;
         this.type = obj.type;
         this.count = obj.count;
+        this.sellingPrice = obj.sellingPrice;
+        this.purchasePrice = obj.purchasePrice;
     }
 
     public object Clone()

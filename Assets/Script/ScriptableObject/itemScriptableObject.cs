@@ -10,4 +10,6 @@ public class ItemScriptableObject : ScriptableObject
     public string description;
     public Item.ItemType type;
     public int count;
+    public int sellingPrice;
+    public int purchasePrice;
 }

@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     [Header("Move")]
     public float speed;
     public bool diagonalMoving;
+    private Rigidbody2D rb;
+    private Vector2 movement;
 
     [Header("Animation")]
     private Animator ac;
@@ -24,13 +26,16 @@ public class Player : MonoBehaviour
     public Inventory inventory;
     public Text debugText;
 
-    public GameObject[] crops;
     public Grid grid;
+    public LayerMask layerMask;
     private bool inGround = false;
+    private bool showUI = false;
+    private Npc npc;
 
     void Awake()
     {
         ac = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
 
@@ -39,44 +44,89 @@ public class Player : MonoBehaviour
         JsonHelper.LoadJson();
     }
 
-    void Update()
+    private void Update()
     {
-        Moving();
-        inventory.ScrollControl(Input.GetAxis("Mouse ScrollWheel"));
-        if (Input.GetKeyDown("space")) inventory.UseItem(inGround, grid, transform.position);
+        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("Vertical");
+        movement = new Vector2(h, v);
+        if (npc == null)
+        {
+            inventory.ScrollControl(Input.GetAxis("Mouse ScrollWheel"));
+        }
+        else
+        {
+            npc.ScrollControl(Input.GetKeyDown(KeyCode.RightArrow) ? -1 : Input.GetKeyDown(KeyCode.LeftArrow) ? 1 : 0, 4);
+        }
+        
+        if (Input.GetKeyDown("space"))
+        {
+            if (npc != null)
+            {
+                npc.On();
+                showUI = true;
+            }
+            else
+            {
+                inventory.UseItem(inGround, grid, transform.position);
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            showUI = false;
+            npc.Off();
+        }
     }
 
-    void Moving()
+    private void FixedUpdate()
+    {
+        if(!showUI) Moving(movement);
+        npc = GetNpc();
+        Debug.Log(npc);
+    }
+
+    private Npc GetNpc()
+    {
+        Collider2D hitCollider = Physics2D.OverlapBox(transform.position, transform.localScale, 0, 1<<LayerMask.NameToLayer("Npc"));
+        if (hitCollider != null)
+        {
+            Debug.Log(hitCollider.name);
+            return hitCollider.GetComponent<Npc>();
+        }
+        return null;
+    }
+
+    private void Moving(Vector2 direction)
     {
         playerMoving = false;
-        upDownMoving = (Input.GetAxisRaw("Vertical") != 0f) ? true : false;
-        leftRightMoving = (Input.GetAxisRaw("Horizontal") != 0f) ? true : false;
+        upDownMoving = (direction.y != 0f) ? true : false;
+        leftRightMoving = (direction.x != 0f) ? true : false;
         //좌 우
-        if (Input.GetAxisRaw("Horizontal") > 0f || Input.GetAxisRaw("Horizontal") < 0f)
+        if (direction.x > 0f || direction.x < 0f)
         {
             if (!upDownMoving || diagonalMoving)
             {
-                cureentMove = new Vector2(Input.GetAxisRaw("Horizontal"), 0f);
-                transform.Translate(new Vector3(Input.GetAxisRaw("Horizontal") * speed * Time.deltaTime, 0f, 0f));
+                cureentMove = new Vector2(direction.x, 0f);
+                rb.velocity = direction * speed;
                 playerMoving = true;
                 leftRightMoving = true;
-                lastMove = new Vector2(Input.GetAxisRaw("Horizontal"), 0f);
+                lastMove = new Vector2(direction.x, 0f);
             }
         }
 
         //위 아래
-        if (Input.GetAxisRaw("Vertical") > 0f || Input.GetAxisRaw("Vertical") < 0f)
+        if (direction.y > 0f || direction.y < 0f)
         {
             if (!leftRightMoving || diagonalMoving)
             {
-                cureentMove = new Vector2(0f, Input.GetAxisRaw("Vertical"));
-                transform.Translate(new Vector3(0f, Input.GetAxisRaw("Vertical") * speed * Time.deltaTime, 0f));
+                cureentMove = new Vector2(0f, direction.y);
+                rb.velocity = direction * speed;
                 playerMoving = true;
                 upDownMoving = true;
-                lastMove = new Vector2(0f, Input.GetAxisRaw("Vertical"));
+                lastMove = new Vector2(0f, direction.y);
             }
-
         }
+
+        if (!playerMoving) rb.velocity = Vector2.zero;
 
         ac.SetFloat("MoveX", cureentMove.x);
         ac.SetFloat("MoveY", cureentMove.y);
@@ -111,7 +161,6 @@ public class Player : MonoBehaviour
             inGround = false;
             Debug.Log("그라운드 밖");
         }
-
     }
 
 }

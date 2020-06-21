@@ -5,7 +5,7 @@ using UnityEngine;
 public class Crop : Item
 {
     public CropType croptype;
-    public Crop(int id, string name, string itemDescription, ItemType type, CropType croptype) : base(id,name, itemDescription, type)
+    public Crop(int id, string name, string itemDescription, ItemType type, CropType croptype, int sellingPrice, int purchasePrice) : base(id,name, itemDescription, type, sellingPrice, purchasePrice)
     {
         this.croptype = croptype;
     }

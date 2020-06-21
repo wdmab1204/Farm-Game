@@ -1632,10 +1632,10 @@ TextureImporter:
       name: Sprites_51
       rect:
         serializedVersion: 2
-        x: 301
-        y: 303
-        width: 69
-        height: 44
+        x: 304
+        y: 308
+        width: 64
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1687,6 +1687,27 @@ TextureImporter:
       bones: []
       spriteID: 6326dae9f19dc52d0800000000000000
       internalID: -3288514898057928138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprites_54
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 324
+        width: 17
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1174f4f165b85100800000000000000
+      internalID: 97026824314581274
       vertices: []
       indices: 
       edges: []

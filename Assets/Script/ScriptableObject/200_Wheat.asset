@@ -9,10 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: shovel
+  m_Script: {fileID: 11500000, guid: 817888af65eb9aa42887ac954c946929, type: 3}
+  m_Name: 200_Wheat
   m_EditorClassIdentifier: Assembly-CSharp::ItemScriptableObject
-  id: 400
-  name: "\uC0BD"
-  description: "\uC791\uBB3C\uC744 \uCE98\uC218 \uC788\uB294 \uB3C4\uAD6C\uC774\uB2E4."
-  type: 3
+  id: 200
+  name: "\uBC00"
+  description: "\uBC00\uC774\uB2E4"
+  type: 2
+  count: 1
+  sellingPrice: 33
+  purchasePrice: 77

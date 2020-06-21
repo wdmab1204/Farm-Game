@@ -8,6 +8,9 @@ public class Item
     public string name;
     public string itemDescription;
     public int count;
+    public int sellingPrice;
+    public int purchasePrice;
+    
     private Sprite icon;
     public Sprite Icon
     {
@@ -37,18 +40,20 @@ public class Item
 
     public enum ItemType
     {
-        equip,
-        use,
-        etc,
-        tool
+        equip, //장비
+        use, //소비
+        etc, //기타
+        tool //도구
     }
 
-    public Item(int id, string name, string itemDescription, ItemType type, int count = 1) {
+    public Item(int id, string name, string itemDescription, ItemType type,int sellingPrice, int purchasePrice, int count = 1) {
         this.id = id;
         this.name = name;
         this.itemDescription = itemDescription;
         this.type = type;
         this.count = count;
+        this.sellingPrice = sellingPrice;
+        this.purchasePrice = purchasePrice;
     }
 
     public Item(ItemScriptableObject obj)
@@ -58,18 +63,25 @@ public class Item
         this.itemDescription = obj.description;
         this.type = obj.type;
         this.count = obj.count;
-        //SetIcon();
+        this.sellingPrice = obj.sellingPrice;
+        this.purchasePrice = obj.purchasePrice;
     }
 
-    //public Sprite GetIcon()
-    //{
-    //    if(icon==null) SetIcon();
-    //    return icon;
-    //}
-
-    public object Copy()
+    public object Clone()
     {
         return this.MemberwiseClone();
+    }
+
+    public override bool Equals(object obj)
+    {
+        Item item = (Item)obj;
+        if (id == item.id &&
+            name.Equals(item.name) &&
+            itemDescription.Equals(item.itemDescription) &&
+            type == item.type)
+            return true;
+
+        return false;
     }
 
 }

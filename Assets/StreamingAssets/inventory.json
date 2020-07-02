@@ -5,6 +5,8 @@
             "name": "밀 씨앗",
             "itemDescription": "밀을 심을 수 있다.",
             "count": 2,
+            "sellingPrice": 0,
+            "purchasePrice": 0,
             "type": 1
         },
         {
@@ -12,7 +14,10 @@
             "name": "삽",
             "itemDescription": "작물을 캘수 있는 도구이다.",
             "count": 1,
+            "sellingPrice": 0,
+            "purchasePrice": 0,
             "type": 3
         }
-    ]
+    ],
+    "money": 777
 }

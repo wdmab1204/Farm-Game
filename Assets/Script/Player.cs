@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     [Header("Inventory")]
     public Inventory inventory;
     public Text debugText;
+    public Money money;
 
     public Grid grid;
     public LayerMask layerMask;

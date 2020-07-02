@@ -114,6 +114,7 @@ public class Inventory : MonoBehaviour
                 {
                     sprite = null;
                     colorAlphaValue = 0f;
+                    slots[i].item = null;
                 }
                 else
                 {
@@ -172,8 +173,12 @@ public class Inventory : MonoBehaviour
         List<Item> list = new List<Item>();
         for(int i=0; i<slots.Length; i++)
         {
-            Item item = slots[i].item;
-            list.Add(item);
+            if (slots[i].item != null)
+            {
+                Item item = slots[i].item;
+                list.Add(item);
+            }
+            
         }
         this.list = new List<Item>(list);
         return this.list;

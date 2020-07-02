@@ -9,9 +9,10 @@ class Serialization
 {
     [SerializeField]
     List<Item> target;
-    public int money;
-    public List<Item> ToList() { return target; }
-    public int ToMoney() { return money; }
+    [SerializeField]
+    int money;
+    public List<Item> GetList() { return target; }
+    public int GetMoney() { return money; }
     public Serialization(List<Item> target, int money)
     {
         this.target = target;
@@ -52,7 +53,6 @@ public class JsonHelper : MonoBehaviour
     /// <summary>
     /// 정해진 경로에있는 json파일을통해 플레이어의 인벤토리에 데이터를 추가합니다.
     /// </summary>
-    [ContextMenu("LoadJson")]
     public static void LoadJson()
     {
         Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
@@ -60,9 +60,9 @@ public class JsonHelper : MonoBehaviour
         try
         {
             string jdata = File.ReadAllText(Application.streamingAssetsPath + "/inventory.json");
-            Serialization<Item> s = JsonUtility.FromJson<Serialization>(jdata);
-            player.inventory.list = s.ToList();
-            player.money.SetMoney(s.ToMoney());
+            Serialization s = JsonUtility.FromJson<Serialization>(jdata);
+            player.inventory.list = s.GetList();
+            player.money.SetMoney(s.GetMoney());
             //int coin = s.ToMoney();
             //player.money.money = coin;
         }
@@ -74,4 +74,5 @@ public class JsonHelper : MonoBehaviour
         player.inventory.Refresh();
         
     }
+
 }

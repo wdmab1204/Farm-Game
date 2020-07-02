@@ -7,18 +7,7 @@ public class Money : MonoBehaviour
 {
     private Player player;
     private Text text;
-    public int money
-    {
-        get
-        {
-            return money;
-        }
-        set
-        {
-            money = value;
-            text.text = value.ToString();
-        }
-    }
+    private int money;
 
     private void Awake()
     {
@@ -30,6 +19,11 @@ public class Money : MonoBehaviour
     {
         this.money = money;
         text.text = this.money.ToString();
+    }
+
+    public int GetMoney()
+    {
+        return this.money;
     }
 
 

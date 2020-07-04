@@ -8,8 +8,8 @@ public class Item
     public string name;
     public string itemDescription;
     public int count;
-    public int sellingPrice;
-    public int purchasePrice;
+    public int sellingPrice { get; }
+    public int purchasePrice { get; }
     
     private Sprite icon;
     public Sprite Icon
@@ -30,6 +30,7 @@ public class Item
 
                 if (icon == null)
                 {
+                    Debug.Log("Error : " + id);
                     throw new System.NullReferenceException();
                 }
             }
@@ -82,6 +83,17 @@ public class Item
             return true;
 
         return false;
+    }
+
+    public override string ToString()
+    {
+        return "\n" +
+            "Id : " + id + "\n"
+            + "Name : " + name + "\n"
+            + "Description : " + itemDescription + "\n"
+            + "Count : " + count + "\n"
+            + "SellingPrice : " + sellingPrice + "\n"
+            + "PurchasePrice : " + purchasePrice;
     }
 
 }

@@ -5,14 +5,18 @@ using System.IO;
 using UnityEngine.UI;
 using System;
 
-class Serialization<T>
+class Serialization
 {
     [SerializeField]
-    List<T> target;
-    public List<T> ToList() { return target; }
-    public Serialization(List<T> target)
+    List<Item> target;
+    [SerializeField]
+    int money;
+    public List<Item> GetList() { return target; }
+    public int GetMoney() { return money; }
+    public Serialization(List<Item> target, int money)
     {
         this.target = target;
+        this.money = money;
     }
 }
 
@@ -30,7 +34,7 @@ public class JsonHelper : MonoBehaviour
     {
         Item item = new Item(itemobj);
         Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        player.inventory.Refresh(item);
+        player.inventory.Add(item);
         SaveJson();
     }
 
@@ -38,18 +42,17 @@ public class JsonHelper : MonoBehaviour
     /// 플레이어 인벤토리의 아이템 데이터들을 json으로 변환하여 지정된 경로에 저장합니다.
     /// </summary>
     [ContextMenu("SaveJson")]
-    public static void SaveJson()
+    public void SaveJson()
     {
         Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         List<Item> inventoryList = player.inventory.ListUpdate();
-        string jdata = JsonUtility.ToJson(new Serialization<Item>(inventoryList), prettyPrint: true);
+        string jdata = JsonUtility.ToJson(new Serialization(inventoryList,777), prettyPrint: true);
         File.WriteAllText(Application.streamingAssetsPath + "/inventory.json", jdata);
     }
 
     /// <summary>
     /// 정해진 경로에있는 json파일을통해 플레이어의 인벤토리에 데이터를 추가합니다.
     /// </summary>
-    [ContextMenu("LoadJson")]
     public static void LoadJson()
     {
         Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
@@ -57,8 +60,12 @@ public class JsonHelper : MonoBehaviour
         try
         {
             string jdata = File.ReadAllText(Application.streamingAssetsPath + "/inventory.json");
-            List<Item> list = JsonUtility.FromJson<Serialization<Item>>(jdata).ToList();
-            player.inventory.list = list;
+            Serialization s = JsonUtility.FromJson<Serialization>(jdata);
+            player.inventory.list = s.GetList();
+            player.money.SetMoney(s.GetMoney());
+            Debug.Log(s.GetMoney());
+            //int coin = s.ToMoney();
+            //player.money.money = coin;
         }
         catch(Exception e)
         {
@@ -68,4 +75,5 @@ public class JsonHelper : MonoBehaviour
         player.inventory.Refresh();
         
     }
+
 }

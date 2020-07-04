@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using UnityEngine.Tilemaps;
+using System.Runtime.CompilerServices;
 
 public class Player : MonoBehaviour
 {
@@ -25,7 +26,9 @@ public class Player : MonoBehaviour
     [Header("Inventory")]
     public Inventory inventory;
     public Text debugText;
+    public Money money;
 
+    [Header("ETC")]
     public Grid grid;
     public LayerMask layerMask;
     private bool inGround = false;
@@ -49,16 +52,16 @@ public class Player : MonoBehaviour
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
         movement = new Vector2(h, v);
-        if (npc == null)
-        {
-            inventory.ScrollControl(Input.GetAxis("Mouse ScrollWheel"));
-        }
-        else
+        if (npc != null)
         {
             npc.ScrollControl(Input.GetKeyDown(KeyCode.RightArrow) ? -1 : Input.GetKeyDown(KeyCode.LeftArrow) ? 1 : 0, 4);
         }
+        else
+        {
+            inventory.ScrollControl(Input.GetAxis("Mouse ScrollWheel"));
+        }
         
-        if (Input.GetKeyDown("space"))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             if (npc != null)
             {
@@ -81,8 +84,8 @@ public class Player : MonoBehaviour
     {
         if(!showUI) Moving(movement);
         npc = GetNpc();
-        Debug.Log(npc);
     }
+
 
     private Npc GetNpc()
     {
@@ -147,7 +150,7 @@ public class Player : MonoBehaviour
         {
             Item item = collision.gameObject.GetComponent<DropItem>().item;
             //inventory.Add(item);
-            inventory.Refresh(item);
+            inventory.Add(item);
             Debug.Log("아이템 습득" + item.name);
             Destroy(collision.gameObject);
         }

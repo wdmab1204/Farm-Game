@@ -1,0 +1,60 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+
+static class Constants
+{
+    public const int MIN_MONEY = 0;
+    public const int MAX_MONEY = 9999999;
+}
+
+public class Money : MonoBehaviour
+{
+    private Player player;
+    private Text text;
+    private int money;
+
+    private void Awake()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        text = GetComponent<Text>();
+    }
+
+    public void SetMoney(int money)
+    {
+        this.money = money;
+        text.text = this.money.ToString();
+    }
+
+    public bool SpendMoney(int money)
+    {
+        int result = this.money - money;
+        if (result >= Constants.MIN_MONEY)
+        {
+            this.money = result;
+            text.text = this.money.ToString();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+
+    public void SaveMoney(int money)
+    {
+        this.money += money;
+        text.text = this.money.ToString();
+    }
+
+    public int GetMoney()
+    {
+        return this.money;
+    }
+
+
+    
+}

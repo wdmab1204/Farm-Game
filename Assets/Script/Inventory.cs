@@ -42,18 +42,18 @@ public class Inventory : MonoBehaviour
     /// list에 아이템을 추가합니다. 중복이 있을 시 개수를 증가시킵니다.
     /// </summary>
     /// <param name="item"></param>
-    public void Add(Item item)
-    {
-        for(int i=0; i<list.Count; i++)
-        {
-            if(list[i].id == item.id)
-            {
-                list[i].count += item.count;
-                return;
-            }
-        }
-        list.Add(item);
-    }
+    //public void Add(Item item)
+    //{
+    //    for(int i=0; i<list.Count; i++)
+    //    {
+    //        if(list[i].id == item.id)
+    //        {
+    //            list[i].count += item.count;
+    //            return;
+    //        }
+    //    }
+    //    list.Add(item);
+    //}
 
     /// <summary>
     /// 변수를 통해 숫자키 입력 또는 휠 입력으로 인벤토리상의 아이템선택을 도와주는 함수입니다.
@@ -139,7 +139,7 @@ public class Inventory : MonoBehaviour
     /// </summary>
     /// <param name="item">추가할 아이템</param>
     /// <param name="count">아이템의 증감수치를 나타냅니다, count값만큼 기존 아이템의 개수를 더하거나 뺍니다.</param>
-    public void Refresh(Item item, int count = 1)
+    public void Add(Item item, int count = 1)
     {
         for (int i = 0; i < slots.Length; i++)
         {
@@ -233,7 +233,7 @@ public class Inventory : MonoBehaviour
                         obj.GetComponentInChildren<GrowSystem>().item = item;
 
                         //item.count = -1;
-                        Refresh(item, -1);
+                        Add(item, -1);
                     }
                 }
 

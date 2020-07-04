@@ -979,8 +979,6 @@ MonoBehaviour:
     name: 
     itemDescription: 
     count: 0
-    sellingPrice: 0
-    purchasePrice: 0
     type: 0
   Img: {fileID: 638607386}
   text: {fileID: 1549160332}
@@ -1435,8 +1433,6 @@ MonoBehaviour:
     name: 
     itemDescription: 
     count: 0
-    sellingPrice: 0
-    purchasePrice: 0
     type: 0
   Img: {fileID: 81148060}
   text: {fileID: 332802151}
@@ -33445,8 +33441,6 @@ MonoBehaviour:
     name: 
     itemDescription: 
     count: 0
-    sellingPrice: 0
-    purchasePrice: 0
     type: 0
   Img: {fileID: 1242213826}
   text: {fileID: 7054951}
@@ -33542,8 +33536,6 @@ MonoBehaviour:
     name: 
     itemDescription: 
     count: 0
-    sellingPrice: 0
-    purchasePrice: 0
     type: 0
   Img: {fileID: 0}
   text: {fileID: 0}
@@ -33604,8 +33596,6 @@ MonoBehaviour:
     name: 
     itemDescription: 
     count: 0
-    sellingPrice: 0
-    purchasePrice: 0
     type: 0
   Img: {fileID: 1267547538}
   text: {fileID: 1426413386}
@@ -34386,8 +34376,6 @@ MonoBehaviour:
     name: 
     itemDescription: 
     count: 0
-    sellingPrice: 0
-    purchasePrice: 0
     type: 0
   Img: {fileID: 0}
   text: {fileID: 0}
@@ -34882,8 +34870,6 @@ MonoBehaviour:
     name: 
     itemDescription: 
     count: 0
-    sellingPrice: 0
-    purchasePrice: 0
     type: 0
   Img: {fileID: 0}
   text: {fileID: 0}
@@ -35630,8 +35616,6 @@ MonoBehaviour:
     name: 
     itemDescription: 
     count: 0
-    sellingPrice: 0
-    purchasePrice: 0
     type: 0
   Img: {fileID: 0}
   text: {fileID: 0}
@@ -35727,8 +35711,6 @@ MonoBehaviour:
     name: 
     itemDescription: 
     count: 0
-    sellingPrice: 0
-    purchasePrice: 0
     type: 0
   Img: {fileID: 0}
   text: {fileID: 0}
@@ -36107,8 +36089,6 @@ MonoBehaviour:
     name: 
     itemDescription: 
     count: 0
-    sellingPrice: 0
-    purchasePrice: 0
     type: 0
   Img: {fileID: 0}
   text: {fileID: 0}
@@ -36303,8 +36283,6 @@ MonoBehaviour:
     name: 
     itemDescription: 
     count: 0
-    sellingPrice: 0
-    purchasePrice: 0
     type: 0
   Img: {fileID: 0}
   text: {fileID: 0}
@@ -36664,8 +36642,6 @@ MonoBehaviour:
     name: 
     itemDescription: 
     count: 0
-    sellingPrice: 0
-    purchasePrice: 0
     type: 0
   Img: {fileID: 0}
   text: {fileID: 0}
@@ -36838,8 +36814,6 @@ MonoBehaviour:
     name: 
     itemDescription: 
     count: 0
-    sellingPrice: 0
-    purchasePrice: 0
     type: 0
   Img: {fileID: 0}
   text: {fileID: 0}

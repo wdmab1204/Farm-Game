@@ -34,7 +34,7 @@ public class JsonHelper : MonoBehaviour
     {
         Item item = new Item(itemobj);
         Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        player.inventory.Refresh(item);
+        player.inventory.Add(item);
         SaveJson();
     }
 
@@ -63,6 +63,7 @@ public class JsonHelper : MonoBehaviour
             Serialization s = JsonUtility.FromJson<Serialization>(jdata);
             player.inventory.list = s.GetList();
             player.money.SetMoney(s.GetMoney());
+            Debug.Log(s.GetMoney());
             //int coin = s.ToMoney();
             //player.money.money = coin;
         }

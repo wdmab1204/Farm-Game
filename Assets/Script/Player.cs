@@ -34,11 +34,15 @@ public class Player : MonoBehaviour
     private bool inGround = false;
     private bool showUI = false;
     private Npc npc;
+    private Camera mainCamera;
+    private Vector3 offset;
 
     void Awake()
     {
         ac = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        mainCamera = Camera.main;
+        offset = transform.position - mainCamera.transform.position;
     }
 
 
@@ -52,25 +56,26 @@ public class Player : MonoBehaviour
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
         movement = new Vector2(h, v);
-        if (npc != null)
+        if (Npc.UIOnOff)
         {
-            npc.ScrollControl(Input.GetKeyDown(KeyCode.RightArrow) ? -1 : Input.GetKeyDown(KeyCode.LeftArrow) ? 1 : 0, 4);
+            npc.ScrollControl(Input.GetKeyDown(KeyCode.RightArrow) ? -1 : Input.GetKeyDown(KeyCode.LeftArrow) ? 1 : 0, max: 4);
         }
         else
         {
             inventory.ScrollControl(Input.GetAxis("Mouse ScrollWheel"));
         }
         
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !Npc.UIOnOff)
+        {
+            inventory.UseItem(inGround, grid, transform.position);
+            Debug.Log("인벤토리");
+        }
+        if (Input.GetKeyDown(KeyCode.F))
         {
             if (npc != null)
             {
                 npc.On();
                 showUI = true;
-            }
-            else
-            {
-                inventory.UseItem(inGround, grid, transform.position);
             }
         }
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -137,6 +142,9 @@ public class Player : MonoBehaviour
 
         ac.SetFloat("LastMoveX", lastMove.x);
         ac.SetFloat("LastMoveY", lastMove.y);
+
+        //Camera smooth moving
+        mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, transform.position - offset, 0.1f);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,10 +7,11 @@ public class Npc : Inventory
 {
     public NpcScriptableObject npcSO;
     public GameObject npcUI;
-    private bool firstInput = false;
+    public static bool UIOnOff;
     private void Awake()
     {
         list = new List<Item>();
+        UIOnOff = false;
     }
 
     private void Start()
@@ -30,6 +32,7 @@ public class Npc : Inventory
             slots[i] = npcUI.transform.GetChild(i).GetComponent<ShopSlot>();
             ((ShopSlot)slots[i]).SetSlot(list[i]);
         }
+        UIOnOff = true;
     }
 
     protected override void SelectSlot()
@@ -49,11 +52,6 @@ public class Npc : Inventory
         base.ScrollControl(scroll, max);
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (!firstInput) // 한번의 키입력으로 여러기능이 동시에 켜지지않기 위한 조치
-            {
-                firstInput = true;
-                return;
-            }
             Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
             Item item = GetItem();
             int sellingPrice = item.sellingPrice;
@@ -69,5 +67,6 @@ public class Npc : Inventory
     public void Off()
     {
         npcUI.SetActive(false);
+        UIOnOff = false;
     }
 }

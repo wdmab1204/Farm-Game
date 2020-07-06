@@ -30,8 +30,7 @@ public class Item
 
                 if (icon == null)
                 {
-                    Debug.Log("Error : " + id);
-                    throw new System.NullReferenceException();
+                    return null;
                 }
             }
             return icon;

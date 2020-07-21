@@ -20,11 +20,17 @@ class Serialization
     }
 }
 
-public class JsonHelper : MonoBehaviour
+public class JsonHelper : Singleton<JsonHelper>
 {
     public Text debugText;
 
     public ItemScriptableObject itemobj;
+    private Player player;
+
+    private void Awake()
+    {
+        player = Player.Instance;
+    }
 
     /// <summary>
     /// Inspector창에 참조되어있는 ItemScriptableObject를 아이템화시켜 인벤토리에 추가합니다.
@@ -33,7 +39,6 @@ public class JsonHelper : MonoBehaviour
     public void AddItem()
     {
         Item item = new Item(itemobj);
-        Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         player.inventory.Add(item);
         SaveJson();
     }
@@ -44,7 +49,6 @@ public class JsonHelper : MonoBehaviour
     [ContextMenu("SaveJson")]
     public void SaveJson()
     {
-        Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         List<Item> inventoryList = player.inventory.ListUpdate();
         string jdata = JsonUtility.ToJson(new Serialization(inventoryList,777), prettyPrint: true);
         File.WriteAllText(Application.streamingAssetsPath + "/inventory.json", jdata);
@@ -53,9 +57,8 @@ public class JsonHelper : MonoBehaviour
     /// <summary>
     /// 정해진 경로에있는 json파일을통해 플레이어의 인벤토리에 데이터를 추가합니다.
     /// </summary>
-    public static void LoadJson()
+    public void LoadJson()
     {
-        Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
         try
         {

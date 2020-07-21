@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Crop : Item
+public class Crop
 {
-    public CropType croptype;
-    public Crop(int id, string name, string itemDescription, ItemType type, CropType croptype, int sellingPrice, int purchasePrice) : base(id,name, itemDescription, type, sellingPrice, purchasePrice)
+    public Item item { get; }
+    public CropType croptype { get; }
+    public Crop(Item item, CropType cropType)
     {
-        this.croptype = croptype;
+        this.item = item;
+        this.croptype = cropType;
     }
     public enum CropType
     {

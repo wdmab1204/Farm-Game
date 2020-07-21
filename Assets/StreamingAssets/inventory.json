@@ -7,7 +7,8 @@
             "count": 2,
             "sellingPrice": 0,
             "purchasePrice": 0,
-            "type": 1
+            "type": 1,
+            "cropType": 0
         },
         {
             "id": 400,
@@ -16,7 +17,18 @@
             "count": 1,
             "sellingPrice": 0,
             "purchasePrice": 0,
-            "type": 3
+            "type": 3,
+            "cropType": 0
+        },
+        {
+            "id": 201,
+            "name": "밀",
+            "itemDescription": "밀이다.",
+            "count": 3,
+            "sellingPrice": 55,
+            "purchasePrice": 111,
+            "type": 2,
+            "cropType": 1
         }
     ],
     "money": 777

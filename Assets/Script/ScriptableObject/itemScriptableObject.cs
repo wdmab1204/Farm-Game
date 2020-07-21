@@ -9,6 +9,7 @@ public class ItemScriptableObject : ScriptableObject
     public new string name;
     public string description;
     public Item.ItemType type;
+    public Item.CropType cropType;
     public int count;
     public int sellingPrice;
     public int purchasePrice;

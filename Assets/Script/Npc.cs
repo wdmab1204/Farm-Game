@@ -8,10 +8,13 @@ public class Npc : Inventory
     public NpcScriptableObject npcSO;
     public GameObject npcUI;
     public static bool UIOnOff;
+    private Player player;
+
     private void Awake()
     {
         list = new List<Item>();
         UIOnOff = false;
+        player = Player.Instance;
     }
 
     private void Start()
@@ -21,6 +24,7 @@ public class Npc : Inventory
         {
             Item item = ItemManager.Instanse.GetItem(itemSO.id);
             list.Add(item);
+            Debug.Log(item.cropType);
         }
     }
 
@@ -52,7 +56,6 @@ public class Npc : Inventory
         base.ScrollControl(scroll, max);
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Player player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
             Item item = GetItem();
             int sellingPrice = item.sellingPrice;
             bool b = player.money.SpendMoney(sellingPrice);

@@ -7,7 +7,7 @@ using System;
 using UnityEngine.Tilemaps;
 using System.Runtime.CompilerServices;
 
-public class Player : MonoBehaviour
+public class Player : Singleton<Player>
 {
     [Header("Move")]
     public float speed;
@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
     private bool inGround = false;
     private bool showUI = false;
     private Npc npc;
+    private Truck truck;
     private Camera mainCamera;
     private Vector3 offset;
 
@@ -48,7 +49,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        JsonHelper.LoadJson();
+        JsonHelper.Instance.LoadJson();
     }
 
     private void Update()
@@ -56,6 +57,8 @@ public class Player : MonoBehaviour
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
         movement = new Vector2(h, v);
+
+
         if (Npc.UIOnOff)
         {
             npc.ScrollControl(Input.GetKeyDown(KeyCode.RightArrow) ? -1 : Input.GetKeyDown(KeyCode.LeftArrow) ? 1 : 0, max: 4);
@@ -65,11 +68,14 @@ public class Player : MonoBehaviour
             inventory.ScrollControl(Input.GetAxis("Mouse ScrollWheel"));
         }
         
+
         if (Input.GetKeyDown(KeyCode.Space) && !Npc.UIOnOff)
         {
             inventory.UseItem(inGround, grid, transform.position);
             Debug.Log("인벤토리");
         }
+
+
         if (Input.GetKeyDown(KeyCode.F))
         {
             if (npc != null)
@@ -77,7 +83,14 @@ public class Player : MonoBehaviour
                 npc.On();
                 showUI = true;
             }
+            if(truck != null)
+            {
+                Item item = inventory.GetItem();
+                if(item != null) truck.SetCrop(item);
+            }
         }
+
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             showUI = false;
@@ -88,19 +101,30 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         if(!showUI) Moving(movement);
-        npc = GetNpc();
+        npc = GetObject<Npc>("Npc");
+        truck = GetObject<Truck>("Truck");
     }
 
 
-    private Npc GetNpc()
+    private T GetObject<T>(string layerName)
     {
-        Collider2D hitCollider = Physics2D.OverlapBox(transform.position, transform.localScale, 0, 1<<LayerMask.NameToLayer("Npc"));
+        Collider2D hitCollider;
+
+
+        if (!string.IsNullOrEmpty(layerName))
+            hitCollider = Physics2D.OverlapBox(transform.position, transform.localScale, 0, 1 << LayerMask.NameToLayer(layerName));
+        else
+            hitCollider = Physics2D.OverlapBox(transform.position, transform.localScale, 0);
+
+
         if (hitCollider != null)
         {
             Debug.Log(hitCollider.name);
-            return hitCollider.GetComponent<Npc>();
+            return hitCollider.GetComponent<T>();
         }
-        return null;
+
+
+        return default(T);
     }
 
     private void Moving(Vector2 direction)

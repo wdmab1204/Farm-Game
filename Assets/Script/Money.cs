@@ -12,13 +12,11 @@ static class Constants
 
 public class Money : MonoBehaviour
 {
-    private Player player;
     private Text text;
     private int money;
 
     private void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         text = GetComponent<Text>();
     }
 

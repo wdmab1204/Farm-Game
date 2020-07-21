@@ -8,8 +8,8 @@ public class Item
     public string name;
     public string itemDescription;
     public int count;
-    public int sellingPrice { get; }
-    public int purchasePrice { get; }
+    public int sellingPrice;
+    public int purchasePrice;
     
     private Sprite icon;
     public Sprite Icon
@@ -37,6 +37,7 @@ public class Item
         }
     }
     public ItemType type;
+    public CropType cropType;
 
     public enum ItemType
     {
@@ -46,11 +47,22 @@ public class Item
         tool //도구
     }
 
-    public Item(int id, string name, string itemDescription, ItemType type,int sellingPrice, int purchasePrice, int count = 1) {
+    public enum CropType
+    {
+        Nothing, //작물이 아님
+        Cereal, //곡류
+        Bulbous, //구근류
+        Fruit, //과실류
+        Vegetable //채소류
+    }
+
+    public Item(int id, string name, string itemDescription, ItemType type, CropType cropType, int sellingPrice, int purchasePrice, int count = 1)
+    {
         this.id = id;
         this.name = name;
         this.itemDescription = itemDescription;
         this.type = type;
+        this.cropType = cropType;
         this.count = count;
         this.sellingPrice = sellingPrice;
         this.purchasePrice = purchasePrice;
@@ -62,6 +74,7 @@ public class Item
         this.name = obj.name;
         this.itemDescription = obj.description;
         this.type = obj.type;
+        this.cropType = obj.cropType;
         this.count = obj.count;
         this.sellingPrice = obj.sellingPrice;
         this.purchasePrice = obj.purchasePrice;

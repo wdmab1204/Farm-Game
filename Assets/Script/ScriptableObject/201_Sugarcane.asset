@@ -16,6 +16,7 @@ MonoBehaviour:
   name: "\uC0AC\uD0D5\uC218\uC218"
   description: "\uC0AC\uD0D5\uC218\uC218\uC774\uB2E4."
   type: 2
+  cropType: 1
   count: 1
   sellingPrice: 55
   purchasePrice: 111

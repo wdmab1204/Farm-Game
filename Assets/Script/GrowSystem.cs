@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class GrowSystem : MonoBehaviour
 {
-    public int maxGrowTime;
+    public float maxGrowTime;
     public Item item;
     public GameObject itemPrefab;
+    public int minDropCount = 1;
+    public int maxDropCount = 1;
 
     private Clock clock;
     private float startTime;
@@ -19,7 +21,6 @@ public class GrowSystem : MonoBehaviour
 
     void Start()
     {
-        Debug.Log(itemPrefab);
         clock = FindObjectOfType<Clock>();
         startTime = clock.currentTime;
         ac = GetComponent<Animator>();
@@ -27,7 +28,7 @@ public class GrowSystem : MonoBehaviour
         originalPosition = transform.position;
         if (sprite.sprite.rect.size.y > 16f)
         {
-            originalPosition = new Vector3(originalPosition.x, originalPosition.y - 0.5f, originalPosition.z);
+            //originalPosition = new Vector3(originalPosition.x, originalPosition.y - 0.5f, originalPosition.z);
         }
 
         col2d = transform.parent.gameObject.GetComponent<Collider2D>();
@@ -65,26 +66,33 @@ public class GrowSystem : MonoBehaviour
 
     public bool Harvest()
     {
-        bool doing = false;
-        Sprite[] sprites = Resources.LoadAll<Sprite>("item");
-        foreach (Sprite sprite in sprites)
-        {
-            if (sprite.name.Equals((item.id+100).ToString()))
-            {
-                doing = true;
-                if (growPhase >= 3)
-                {
-                    GameObject obj = Instantiate(itemPrefab);
-                    obj.transform.position = transform.parent.position;
-                    SpriteRenderer spriteRenderer = obj.GetComponent<SpriteRenderer>();
-                    spriteRenderer.sprite = sprite;
 
-                    DropItem di = obj.GetComponent<DropItem>();
-                    di.item = ItemManager.Instanse.GetItem(item.id + 100);
-                }
-                break;
+        Item crop = ItemManager.Instanse.GetItem(item.id + 100);
+        if (crop != null && growPhase >= 3)
+        {
+            for (int i = 0; i < GetRandomInteger(); i++)
+            {
+                GameObject obj = new GameObject(crop.name);
+                obj.transform.position = transform.parent.position;
+                SpriteRenderer spriteRenderer = obj.AddComponent<SpriteRenderer>();
+                spriteRenderer.sprite = crop.Icon;
+                spriteRenderer.sortingLayerName = "Object";
+                BoxCollider2D col = obj.AddComponent<BoxCollider2D>();
+                col.enabled = false;
+                col.isTrigger = true;
+                obj.AddComponent<SmoothMove>().speed = 3f;
+                obj.tag = "DropItem";
+
+                DropItem di = obj.AddComponent<DropItem>();
+                di.item = crop;
             }
         }
-        return doing;
+        return true;
     }
+
+    private int GetRandomInteger() {
+        int value = UnityEngine.Random.Range(minDropCount, maxDropCount);
+        return value;
+    }
+
 }

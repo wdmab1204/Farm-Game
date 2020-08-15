@@ -31,7 +31,7 @@ public class ItemManager : MonoBehaviour
     }
 
     [SerializeField]
-    private ItemScriptableObject[] items;
+    private ItemScriptableObject[] items = null;
 
     private void Awake()
     {

@@ -108,4 +108,9 @@ public class Item
             + "PurchasePrice : " + purchasePrice;
     }
 
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
+    }
+
 }

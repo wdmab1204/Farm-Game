@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +21,9 @@ public class Inventory : MonoBehaviour
     public List<Item> list;
     public Slot[] slots;
     public GameObject selectSign;
+    public Grid grid;
+    private Vector3 tilePos;
+
 
     /// <summary>
     /// 선택된 슬롯의 아이템을 획득합니다.
@@ -171,14 +175,14 @@ public class Inventory : MonoBehaviour
     public List<Item> ListUpdate()
     {
         List<Item> list = new List<Item>();
-        for(int i=0; i<slots.Length; i++)
+        for (int i = 0; i < slots.Length; i++)
         {
             if (slots[i].item != null)
             {
                 Item item = slots[i].item;
                 list.Add(item);
             }
-            
+
         }
         this.list = new List<Item>(list);
         return this.list;
@@ -187,12 +191,11 @@ public class Inventory : MonoBehaviour
     /// <summary>
     /// 아이템을 사용합니다.
     /// </summary>
-    /// <param name="inGround">플레이어가 경작지 안에 있는지에 대한 변수입니다. 안에있다면 true, 아니라면 false입니다.</param>
-    /// <param name="grid">grid를 통해 타일간격에 맞게 클론(작물 등)을 생성합니다.</param>
     /// <param name="playerPosition">플레이어의 위치값을 통해 클론(작물 등)을 생성합니다.</param>
-    public void UseItem(bool inGround, Grid grid, Vector3 playerPosition)
+    public void UseItem(Vector3 playerPosition, int direction)
     {
         Item item;
+
         try
         {
             item = (Item)GetItem().Clone();
@@ -201,40 +204,42 @@ public class Inventory : MonoBehaviour
         {
             return;
         }
+        catch (NullReferenceException)
+        {
+            return;
+        }
 
-        Vector3Int tilePos = grid.WorldToCell(playerPosition);
-        Debug.Log((Vector3)tilePos);
-        Collider2D[] hits = Physics2D.OverlapBoxAll(playerPosition, new Vector2(0.5f, 0.5f), 0);
+        tilePos = GetTilePositionOfDirection(playerPosition, direction);
 
         switch (item.type)
         {
             case Item.ItemType.use:
-                if (inGround)
+
+
+                Collider2D col = Physics2D.OverlapPoint(tilePos, 1 << LayerMask.NameToLayer("Cultivated Ground"));
+
+
+                if (col != null && col.TryGetComponent(out CultivatedGround cg))
                 {
-                    bool isEmpty = false;
-                    foreach (Collider2D hit in hits)
+                    col = Physics2D.OverlapBox(tilePos, new Vector2(1.0f, 1.0f), 0, 1 << LayerMask.NameToLayer("Crop"));
+                    if (col != null)
                     {
-                        if (hit.gameObject.layer == LayerMask.NameToLayer("Cultivated Ground"))
-                        {
-                            isEmpty = true;
-                        }
-                        else if (hit.gameObject.CompareTag("Player")) continue;
-                        else
-                        {
-                            isEmpty = false;
-                            break;
-                        }
+                        Debug.Log(col.gameObject.transform.position);
+                        Debug.Log(tilePos);
                     }
 
-                    if (isEmpty)
-                    {
-                        GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/" + item.id));
-                        obj.transform.position = tilePos;
-                        obj.GetComponentInChildren<GrowSystem>().item = item;
+                    if (col != null && col.gameObject.transform.position.Equals(tilePos)) break;
 
-                        //item.count = -1;
-                        Add(item, -1);
-                    }
+                    //땅에 작물심기
+                    GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/" + item.id));
+                    obj.transform.position = tilePos;
+
+                    //씨앗 소모하기
+                    Add(item, -1);
+
+                    GrowSystem gs = obj.GetComponentInChildren<GrowSystem>();
+                    gs.item = item;
+                    cg.SetCrop(gs);
                 }
 
 
@@ -244,6 +249,7 @@ public class Inventory : MonoBehaviour
             case Item.ItemType.etc:
                 break;
             case Item.ItemType.tool:
+                Collider2D[] hits = Physics2D.OverlapBoxAll(tilePos, new Vector2(0.5f, 0.5f), 0);
                 foreach (Collider2D hit in hits)
                 {
                     if (hit.gameObject.CompareTag("Crop"))
@@ -259,5 +265,23 @@ public class Inventory : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    /// <summary>
+    /// 플레이어가 바라보는 방향의 타일위치를 가져옵니다
+    /// </summary>
+    /// <param name="pos"></param>
+    /// <param name="direction"></param>
+    /// <returns></returns>
+    private Vector3 GetTilePositionOfDirection(Vector3 pos, int direction)
+    {
+        Vector3Int tilePos = grid.WorldToCell(pos);
+        if (direction == 1) tilePos = new Vector3Int(tilePos.x, tilePos.y + 1, tilePos.z);//up
+        else if (direction == 2) tilePos = new Vector3Int(tilePos.x + 1, tilePos.y, tilePos.z);//right
+        else if (direction == 3) tilePos = new Vector3Int(tilePos.x, tilePos.y - 1, tilePos.z);//down
+        else if (direction == 4) tilePos = new Vector3Int(tilePos.x - 1, tilePos.y, tilePos.z);//left
+
+        Vector3 v3 = tilePos;
+        return v3;
     }
 }

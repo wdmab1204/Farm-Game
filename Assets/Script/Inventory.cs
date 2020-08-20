@@ -22,7 +22,6 @@ public class Inventory : MonoBehaviour
     public Slot[] slots;
     public GameObject selectSign;
     public Grid grid;
-    private Vector3 tilePos;
 
 
     /// <summary>
@@ -209,7 +208,7 @@ public class Inventory : MonoBehaviour
             return;
         }
 
-        tilePos = GetTilePositionOfDirection(playerPosition, direction);
+        Vector3 tilePos = GetTilePositionOfDirection(playerPosition, direction);
 
         switch (item.type)
         {
@@ -221,25 +220,30 @@ public class Inventory : MonoBehaviour
 
                 if (col != null && col.TryGetComponent(out CultivatedGround cg))
                 {
-                    col = Physics2D.OverlapBox(tilePos, new Vector2(1.0f, 1.0f), 0, 1 << LayerMask.NameToLayer("Crop"));
-                    if (col != null)
+                    //col = Physics2D.OverlapBox(tilePos, new Vector2(1.0f, 1.0f), 0, 1 << LayerMask.NameToLayer("Crop"));
+                    //if (col != null)
+                    //{
+                    //    Debug.Log(col.gameObject.transform.position);
+                    //    Debug.Log(tilePos);
+                    //}
+
+                    //if (col != null && col.gameObject.transform.position.Equals(tilePos)) break;
+
+                    if (cg.CheckCropTile(tilePos - cg.transform.localPosition))
                     {
-                        Debug.Log(col.gameObject.transform.position);
-                        Debug.Log(tilePos);
+                        //땅에 작물심기
+                        GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/" + item.id));
+                        obj.transform.position = tilePos;
+
+                        //씨앗 소모하기
+                        Add(item, -1);
+
+                        GrowSystem gs = obj.GetComponentInChildren<GrowSystem>();
+                        gs.item = item;
+                        cg.SetCrop(gs, tilePos - cg.transform.localPosition);
                     }
 
-                    if (col != null && col.gameObject.transform.position.Equals(tilePos)) break;
-
-                    //땅에 작물심기
-                    GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/" + item.id));
-                    obj.transform.position = tilePos;
-
-                    //씨앗 소모하기
-                    Add(item, -1);
-
-                    GrowSystem gs = obj.GetComponentInChildren<GrowSystem>();
-                    gs.item = item;
-                    cg.SetCrop(gs);
+                    
                 }
 
 

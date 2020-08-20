@@ -21,13 +21,13 @@ public class CultivatedGround : MonoBehaviour
     private int index;
     private GameObject[] vertexTile; //upperLeft,upperRight,lowerLeft,lowerRight
     private int vertexIndex;
-
+    private bool[] numberArray;
 
     private void Awake()
     {
         tileList = new List<GameObject>();
         col = GetComponent<CompositeCollider2D>();
-        lengthArray = new int[3] { 3, 5, 7 };
+        lengthArray = new int[3] { 5, 5, 7 };
         index = -1;
         vertexTile = new GameObject[4];
         vertexIndex = 0;
@@ -53,6 +53,8 @@ public class CultivatedGround : MonoBehaviour
         int rows = lengthArray[index], cols = lengthArray[index];
         int minRow = -rows / 2, maxRow = rows / 2;
         int minCol = -cols / 2, maxCol = cols / 2;
+
+        numberArray = new bool[lengthArray[index] * lengthArray[index]];
 
         for (int i = 0; i < vertexIndex; i++)
         {
@@ -96,14 +98,16 @@ public class CultivatedGround : MonoBehaviour
 
                 float posX = col * tileSize + transform.localPosition.x;
                 float posY = row * -tileSize + transform.localPosition.y;
-
-                tile.transform.position = new Vector2(posX, posY);
+                Vector2 tilePos = new Vector2(posX, posY);
+                tile.transform.position = tilePos;
+                int number = GetNumberOfGround(new Vector2(tile.transform.localPosition.x - 0.5f, tile.transform.localPosition.y - 0.5f));
+                numberArray[number] = true;
             }
         }
         Invoke("RegenerateCollider", 0.1f);
     }
 
-
+      
     [ContextMenu("Clear")]
     public void ClearTiles()
     {
@@ -113,14 +117,33 @@ public class CultivatedGround : MonoBehaviour
         }
     }
 
+    private int GetNumberOfGround(Vector2 v)
+    {
+        int number = -1;
+        number = (int)((v.x + v.y) + ((lengthArray[index] / 2 - v.y) * (lengthArray[index] + 1)));
 
-    public void SetCrop(GrowSystem gs)
+        if (number >= 0 && number <= lengthArray[index] * lengthArray[index])
+            return number;
+        else 
+            return -1;
+    }
+
+    public bool CheckCropTile(Vector2 v)
+    {
+        int number = GetNumberOfGround(v);
+        return numberArray[number];
+    }
+
+    public void SetCrop(GrowSystem gs, Vector2 tilePos)
     {
         if (gs.item.cropType == this.cropType)
         {
             gs.maxGrowTime -= gs.maxGrowTime * 0.3f; //0.3배 성장속도 증가
             //성장속도 증가
         }
+
+        int number = GetNumberOfGround(tilePos);
+        numberArray[number] = false;
     }
 
 }

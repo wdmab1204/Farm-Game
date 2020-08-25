@@ -62,6 +62,9 @@ TextureImporter:
   - first:
       213: -8346291274449466048
     second: UI_13
+  - first:
+      213: -343943630576144839
+    second: UI_14
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -436,6 +439,27 @@ TextureImporter:
       bones: []
       spriteID: 04d4f727e440c2c80800000000000000
       internalID: -8346291274449466048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_14
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 303
+        width: 134
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93e20cc17111a3bf0800000000000000
+      internalID: -343943630576144839
       vertices: []
       indices: 
       edges: []

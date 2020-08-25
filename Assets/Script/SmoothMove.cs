@@ -7,6 +7,7 @@ public class SmoothMove : MonoBehaviour
     public Vector3 destination;
     public float speed = 0.1f;
 
+
     void Start()
     {
         float x, y;

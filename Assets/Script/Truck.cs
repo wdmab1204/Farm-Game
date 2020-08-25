@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Text;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class Truck : MonoBehaviour
@@ -12,6 +14,8 @@ public class Truck : MonoBehaviour
     private new Camera camera;
     private Player player;
     private bool findPlayer;
+    private List<Item> list;
+    private StringBuilder sb;
 
     private void Awake()
     {
@@ -21,6 +25,8 @@ public class Truck : MonoBehaviour
         camera = Camera.main;
         player = Player.Instance;
         textObject = stateText.gameObject;
+        list = new List<Item>();
+        sb = new StringBuilder();
     }
 
     void Update()
@@ -53,10 +59,23 @@ public class Truck : MonoBehaviour
             if (currentCount + crop.count <= maxCount)
             {
                 currentCount += crop.count;
-                stateText.text = currentCount.ToString() + " / " + maxCount.ToString();
+                stateText.text = CombineString(currentCount.ToString(), " / ", maxCount.ToString());
+                list.Add(crop);
                 player.inventory.Add(crop, -crop.count); //delete
+
+                
             }
         }
+    }
+
+    private string CombineString(params string[] arr)
+    {
+        sb.Clear();
+        foreach(string str in arr)
+        {
+            sb.Append(str);
+        }
+        return sb.ToString();
     }
 
 

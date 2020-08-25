@@ -20,7 +20,7 @@ public class Player : Singleton<Player>
     private bool playerMoving;
     private bool upDownMoving;
     private bool leftRightMoving;
-    private Vector2 cureentMove;
+    private Vector2 current;
     private Vector2 lastMove;
 
     [Header("Inventory")]
@@ -30,8 +30,6 @@ public class Player : Singleton<Player>
 
     [Header("ETC")]
     public Grid grid;
-    public LayerMask layerMask;
-    private bool inGround = false;
     private bool showUI = false;
     private Npc npc;
     private Truck truck;
@@ -52,6 +50,7 @@ public class Player : Singleton<Player>
         JsonHelper.Instance.LoadJson();
     }
 
+
     private void Update()
     {
         float h = Input.GetAxisRaw("Horizontal");
@@ -71,8 +70,7 @@ public class Player : Singleton<Player>
 
         if (Input.GetKeyDown(KeyCode.Space) && !Npc.UIOnOff)
         {
-            inventory.UseItem(inGround, grid, transform.position);
-            Debug.Log("인벤토리");
+            inventory.UseItem(transform.position, GetDirection());
         }
 
 
@@ -137,7 +135,7 @@ public class Player : Singleton<Player>
         {
             if (!upDownMoving || diagonalMoving)
             {
-                cureentMove = new Vector2(direction.x, 0f);
+                current = new Vector2(direction.x, 0f);
                 rb.velocity = direction * speed;
                 playerMoving = true;
                 leftRightMoving = true;
@@ -150,7 +148,7 @@ public class Player : Singleton<Player>
         {
             if (!leftRightMoving || diagonalMoving)
             {
-                cureentMove = new Vector2(0f, direction.y);
+                current = new Vector2(0f, direction.y);
                 rb.velocity = direction * speed;
                 playerMoving = true;
                 upDownMoving = true;
@@ -160,8 +158,8 @@ public class Player : Singleton<Player>
 
         if (!playerMoving) rb.velocity = Vector2.zero;
 
-        ac.SetFloat("MoveX", cureentMove.x);
-        ac.SetFloat("MoveY", cureentMove.y);
+        ac.SetFloat("MoveX", current.x);
+        ac.SetFloat("MoveY", current.y);
         ac.SetBool("PlayerMoving", playerMoving);
 
         ac.SetFloat("LastMoveX", lastMove.x);
@@ -171,19 +169,23 @@ public class Player : Singleton<Player>
         mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, transform.position - offset, 0.1f);
     }
 
+    private int GetDirection()
+    {
+        int direction = 0;
+        if (current.x == 0f && current.y >= 0f) direction = 1;
+        else if (current.x >= 0f && current.y == 0f) direction = 2;
+        else if (current.x == 0f && current.y <= 0f) direction = 3;
+        else if (current.x <= 0f && current.y == 0f) direction = 4;
+
+        return direction;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.layer == LayerMask.NameToLayer("Cultivated Ground"))
-        {
-            inGround = true;
-            Debug.Log("그라운드 안");
-        }
         if (collision.gameObject.CompareTag("DropItem"))
         {
             Item item = collision.gameObject.GetComponent<DropItem>().item;
-            //inventory.Add(item);
             inventory.Add(item);
-            Debug.Log("아이템 습득" + item.name);
             Destroy(collision.gameObject);
         }
     }
@@ -191,11 +193,7 @@ public class Player : Singleton<Player>
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Cultivated Ground"))
-        {
-            inGround = false;
-            Debug.Log("그라운드 밖");
-        }
+
     }
 
 }

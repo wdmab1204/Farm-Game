@@ -66,7 +66,6 @@ public class JsonHelper : Singleton<JsonHelper>
             Serialization s = JsonUtility.FromJson<Serialization>(jdata);
             player.inventory.list = s.GetList();
             player.money.SetMoney(s.GetMoney());
-            Debug.Log(s.GetMoney());
             //int coin = s.ToMoney();
             //player.money.money = coin;
         }

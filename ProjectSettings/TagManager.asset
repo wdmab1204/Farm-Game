@@ -20,7 +20,7 @@ TagManager:
   - Cultivated Ground
   - Npc
   - Truck
-  - 
+  - Crop
   - 
   - 
   - 
@@ -44,4 +44,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Object
+    uniqueID: 1909529107
+    locked: 0
+  - name: Player
+    uniqueID: 1276841231
+    locked: 0
+  - name: Crop
+    uniqueID: 2619739853
+    locked: 0
+  - name: Interaction
+    uniqueID: 641442509
     locked: 0

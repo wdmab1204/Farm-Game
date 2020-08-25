@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 99992879572476162}
   - component: {fileID: 99992879572476173}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67,9 +67,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingLayerID: -1675227443
+  m_SortingLayer: 3
+  m_SortingOrder: 0
   m_Sprite: {fileID: 7960299501354929935, guid: 68955f69f5598f348a7758cdae60416b,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 99992879943806274}
   - component: {fileID: 99992879943806275}
   - component: {fileID: 99992879943806272}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 99992879943806278}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 99992879572476162}
@@ -153,9 +153,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingLayerID: -1675227443
+  m_SortingLayer: 3
+  m_SortingOrder: 1
   m_Sprite: {fileID: 1579531326687846966, guid: 68955f69f5598f348a7758cdae60416b,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -189,8 +189,11 @@ MonoBehaviour:
     sellingPrice: 0
     purchasePrice: 0
     type: 1
+    cropType: 0
   itemPrefab: {fileID: 7511321187926518852, guid: 37387a1e8dc899e46bbbacba2f6bd054,
     type: 3}
+  minDropCount: 2
+  maxDropCount: 4
 --- !u!95 &99992879943806275
 Animator:
   serializedVersion: 3
@@ -237,7 +240,7 @@ GameObject:
   - component: {fileID: 99992880169379759}
   - component: {fileID: -6696506439257975617}
   - component: {fileID: 5543112320320964561}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: 100
   m_TagString: Crop
   m_Icon: {fileID: 0}
@@ -297,6 +300,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fc8a1ce36bacd143a05a16abe15b21d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 0
+  mode: 1
   x: 1
   y: 1

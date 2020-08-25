@@ -5,13 +5,9 @@ using UnityEngine.U2D;
 
 public class testScript : MonoBehaviour
 {
-    public PixelPerfectCamera cam;
-
-    public void OnClick()
+    private void Start()
     {
-        cam.enabled = !cam.enabled;
+
     }
-
-
 
 }

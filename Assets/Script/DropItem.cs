@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class DropItem : MonoBehaviour
 {
-    [SerializeField]
     private Collider2D col;
     public Item item;
+
+    private void Awake()
+    {
+        col = GetComponent<Collider2D>();
+    }
     private void Start()
     {
         Invoke("OnOffCollider", 1.5f);

@@ -149,7 +149,6 @@ public class Inventory : MonoBehaviour
             if (slots[i].item == null)
             {
                 slots[i].SetSlot(item);
-                Debug.Log(slots[i].item);
                 break;
             }
             else if (slots[i].item.id == item.id)
@@ -161,7 +160,6 @@ public class Inventory : MonoBehaviour
                 {
                     RemoveItem();
                 }
-                Debug.Log(slots[i].item);
                 break;
             }
         }
@@ -209,26 +207,14 @@ public class Inventory : MonoBehaviour
         }
 
         Vector3 tilePos = GetTilePositionOfDirection(playerPosition, direction);
+        Collider2D col = Physics2D.OverlapPoint(tilePos, 1 << LayerMask.NameToLayer("Cultivated Ground"));
 
         switch (item.type)
         {
             case Item.ItemType.use:
 
-
-                Collider2D col = Physics2D.OverlapPoint(tilePos, 1 << LayerMask.NameToLayer("Cultivated Ground"));
-
-
                 if (col != null && col.TryGetComponent(out CultivatedGround cg))
                 {
-                    //col = Physics2D.OverlapBox(tilePos, new Vector2(1.0f, 1.0f), 0, 1 << LayerMask.NameToLayer("Crop"));
-                    //if (col != null)
-                    //{
-                    //    Debug.Log(col.gameObject.transform.position);
-                    //    Debug.Log(tilePos);
-                    //}
-
-                    //if (col != null && col.gameObject.transform.position.Equals(tilePos)) break;
-
                     if (cg.CheckCropTile(tilePos - cg.transform.localPosition))
                     {
                         //땅에 작물심기
@@ -240,12 +226,9 @@ public class Inventory : MonoBehaviour
 
                         GrowSystem gs = obj.GetComponentInChildren<GrowSystem>();
                         gs.item = item;
-                        cg.SetCrop(gs, tilePos - cg.transform.localPosition);
+                        cg.SetCrop(gs, tilePos - cg.transform.localPosition, obj);
                     }
-
-                    
                 }
-
 
                 break;
             case Item.ItemType.equip:
@@ -253,15 +236,22 @@ public class Inventory : MonoBehaviour
             case Item.ItemType.etc:
                 break;
             case Item.ItemType.tool:
-                Collider2D[] hits = Physics2D.OverlapBoxAll(tilePos, new Vector2(0.5f, 0.5f), 0);
-                foreach (Collider2D hit in hits)
+                //Collider2D[] hits = Physics2D.OverlapBoxAll(tilePos, new Vector2(0.5f, 0.5f), 0);
+                //foreach (Collider2D hit in hits)
+                //{
+                //    if (hit.gameObject.CompareTag("Crop"))
+                //    {
+                //        GrowSystem gs = hit.gameObject.GetComponentInChildren<GrowSystem>();
+                //        bool b = gs.Harvest();
+                //        if (b) Destroy(gs.transform.parent.gameObject);
+                //        break;
+                //    }
+                //}
+                if (col != null && col.TryGetComponent(out CultivatedGround _cg))
                 {
-                    if (hit.gameObject.CompareTag("Crop"))
+                    if (!_cg.CheckCropTile(tilePos - _cg.transform.localPosition))
                     {
-                        GrowSystem gs = hit.gameObject.GetComponentInChildren<GrowSystem>();
-                        bool b = gs.Harvest();
-                        if (b) Destroy(gs.transform.parent.gameObject);
-                        break;
+                        _cg.DeleteCrop(tilePos - _cg.transform.localPosition);
                     }
                 }
 

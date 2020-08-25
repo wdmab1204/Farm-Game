@@ -7,8 +7,7 @@ public class testScript : MonoBehaviour
 {
     private void Start()
     {
-        Debug.Log(transform.position);
-        Debug.Log(transform.localPosition);
+
     }
 
 }

@@ -50,6 +50,7 @@ public class Player : Singleton<Player>
         JsonHelper.Instance.LoadJson();
     }
 
+
     private void Update()
     {
         float h = Input.GetAxisRaw("Horizontal");
@@ -70,7 +71,6 @@ public class Player : Singleton<Player>
         if (Input.GetKeyDown(KeyCode.Space) && !Npc.UIOnOff)
         {
             inventory.UseItem(transform.position, GetDirection());
-            Debug.Log("인벤토리");
         }
 
 
@@ -185,9 +185,7 @@ public class Player : Singleton<Player>
         if (collision.gameObject.CompareTag("DropItem"))
         {
             Item item = collision.gameObject.GetComponent<DropItem>().item;
-            //inventory.Add(item);
             inventory.Add(item);
-            Debug.Log("아이템 습득" + item.name);
             Destroy(collision.gameObject);
         }
     }

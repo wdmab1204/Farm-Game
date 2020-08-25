@@ -24,7 +24,6 @@ public class Npc : Inventory
         {
             Item item = ItemManager.Instanse.GetItem(itemSO.id);
             list.Add(item);
-            Debug.Log(item.cropType);
         }
     }
 

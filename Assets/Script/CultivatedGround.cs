@@ -22,6 +22,7 @@ public class CultivatedGround : MonoBehaviour
     private GameObject[] vertexTile; //upperLeft,upperRight,lowerLeft,lowerRight
     private int vertexIndex;
     private bool[] numberArray;
+    private GameObject[] cropArray;
 
     private void Awake()
     {
@@ -35,13 +36,19 @@ public class CultivatedGround : MonoBehaviour
     private void Start()
     {
         GenerateTile();
-        Debug.Log(transform.position);
-        Debug.Log(transform.localPosition);
     }
 
     private void RegenerateCollider()
     {
         col.GenerateGeometry();
+    }
+
+    private void SizeUpArray<T>(ref T[] target)
+    {
+        T[] temp = target;
+        target = new T[lengthArray[index] * lengthArray[index]];
+        if (temp != null)
+            Array.Copy(temp, target, temp.Length);
     }
 
     [ContextMenu("UpdateTile")]
@@ -54,7 +61,9 @@ public class CultivatedGround : MonoBehaviour
         int minRow = -rows / 2, maxRow = rows / 2;
         int minCol = -cols / 2, maxCol = cols / 2;
 
-        numberArray = new bool[lengthArray[index] * lengthArray[index]];
+        SizeUpArray(ref numberArray);
+
+        SizeUpArray(ref cropArray);
 
         for (int i = 0; i < vertexIndex; i++)
         {
@@ -107,7 +116,9 @@ public class CultivatedGround : MonoBehaviour
         Invoke("RegenerateCollider", 0.1f);
     }
 
-      
+
+
+
     [ContextMenu("Clear")]
     public void ClearTiles()
     {
@@ -124,7 +135,7 @@ public class CultivatedGround : MonoBehaviour
 
         if (number >= 0 && number <= lengthArray[index] * lengthArray[index])
             return number;
-        else 
+        else
             return -1;
     }
 
@@ -134,7 +145,7 @@ public class CultivatedGround : MonoBehaviour
         return numberArray[number];
     }
 
-    public void SetCrop(GrowSystem gs, Vector2 tilePos)
+    public void SetCrop(GrowSystem gs, Vector2 tilePos, GameObject cropObject)
     {
         if (gs.item.cropType == this.cropType)
         {
@@ -144,6 +155,36 @@ public class CultivatedGround : MonoBehaviour
 
         int number = GetNumberOfGround(tilePos);
         numberArray[number] = false;
+        cropArray[number] = cropObject;
+
+        ArrayLog(numberArray);
     }
 
+
+    private void ArrayLog<T>(T[] arr)
+    {
+        string str = "";
+        for (int index = 0; index < arr.Length; index++)
+        {
+            str += arr[index].ToString() + " ";
+            if (index > 0 && (index + 1) % (lengthArray[this.index]) == 0) str += "\n";
+        }
+        Debug.Log(str);
+    }
+
+    public void DeleteCrop(Vector2 tilePos)
+    {
+        int number = GetNumberOfGround(tilePos);
+
+        GameObject crop = cropArray[number];
+        GrowSystem gs = crop.transform.GetChild(0).GetComponent<GrowSystem>();
+        gs.Harvest();
+
+
+        Destroy(crop);
+
+        numberArray[number] = true;
+        cropArray[number] = null;
+
+    }
 }

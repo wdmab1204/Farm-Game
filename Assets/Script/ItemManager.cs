@@ -47,7 +47,6 @@ public class ItemManager : MonoBehaviour
     public Item GetItem(int id)
     {
         Item item = null;
-        Debug.Log(id);
         foreach(ItemScriptableObject itemobj in items)
         {
             if (id.Equals(itemobj.id))

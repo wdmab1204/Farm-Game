@@ -57,7 +57,7 @@ public class Npc : Inventory
         {
             Item item = GetItem();
             int sellingPrice = item.sellingPrice;
-            bool b = player.money.SpendMoney(sellingPrice);
+            bool b = player.money.UseMoney(sellingPrice);
 
             if (b) //돈이 부족하지않다면
             {

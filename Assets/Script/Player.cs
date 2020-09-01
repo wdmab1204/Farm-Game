@@ -30,7 +30,6 @@ public class Player : Singleton<Player>
 
     [Header("ETC")]
     public Grid grid;
-    private bool showUI = false;
     private Npc npc;
     private Truck truck;
     private Camera mainCamera;
@@ -79,7 +78,6 @@ public class Player : Singleton<Player>
             if (npc != null)
             {
                 npc.On();
-                showUI = true;
             }
             if(truck != null)
             {
@@ -91,14 +89,13 @@ public class Player : Singleton<Player>
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            showUI = false;
             npc.Off();
         }
     }
 
     private void FixedUpdate()
     {
-        if(!showUI) Moving(movement);
+        if(!Npc.UIOnOff) Moving(movement);
         npc = GetObject<Npc>("Npc");
         truck = GetObject<Truck>("Truck");
     }

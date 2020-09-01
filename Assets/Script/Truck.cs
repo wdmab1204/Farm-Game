@@ -14,7 +14,7 @@ public class Truck : MonoBehaviour
     private new Camera camera;
     private Player player;
     private bool findPlayer;
-    private List<Item> list;
+    [HideInInspector] public List<Item> list;
     private StringBuilder sb;
 
     private void Awake()
@@ -63,7 +63,11 @@ public class Truck : MonoBehaviour
                 list.Add(crop);
                 player.inventory.Add(crop, -crop.count); //delete
 
-                
+
+            }
+            else
+            {
+
             }
         }
     }

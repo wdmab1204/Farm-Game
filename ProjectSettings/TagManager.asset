@@ -8,6 +8,8 @@ TagManager:
   - Crop
   - DropItem
   - Npc
+  - MainCanvas
+  - Truck
   layers:
   - Default
   - TransparentFX

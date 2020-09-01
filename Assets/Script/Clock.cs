@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Clock : MonoBehaviour
 {
     private int Minute = 0; //분-저장
-    private int Hour = 9; //시간-저장 // 최초시간은 아침9시
+    public int Hour = 9; //시간-저장 // 최초시간은 아침9시
     public float clock_speed; //게임속 1시간이 몇초인가?
     private float tic_toc;
     [HideInInspector]
@@ -41,5 +41,10 @@ public class Clock : MonoBehaviour
             }
         }
         GetComponent<Text>().text = Hour + " : " + Minute / 10 + "0";
+    }
+
+    public int GetHour()
+    {
+        return Hour;
     }
 }

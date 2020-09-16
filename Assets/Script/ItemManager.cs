@@ -2,33 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemManager : MonoBehaviour
+public class ItemManager : Singleton<ItemManager>
 {
-    private static ItemManager instance;
-    public static ItemManager Instanse
-    {
-        get
-        {
-            if(instance == null)
-            {
-                var obj = FindObjectOfType<ItemManager>();
-                if (obj != null)
-                {
-                    instance = obj;
-                }
-                else
-                {
-                    var newSingleton = new GameObject("ItemManager").AddComponent<ItemManager>();
-                    instance = newSingleton;
-                }
-            }
-            return instance;
-        }
-        set
-        {
-            instance = value;
-        }
-    }
 
     [SerializeField]
     private ItemScriptableObject[] items = null;

@@ -31,6 +31,7 @@ public class Player : Singleton<Player>
     [Header("ETC")]
     private Npc npc;
     private Truck truck;
+    private CultivatedGroundContract cgc;
     private Camera mainCamera;
     private Vector3 offset;
 
@@ -55,6 +56,8 @@ public class Player : Singleton<Player>
         float v = Input.GetAxisRaw("Vertical");
         movement = new Vector2(h, v);
 
+
+        cgc.ScrollControl(Input.GetKey(KeyCode.RightArrow) ? -1 : Input.GetKey(KeyCode.LeftArrow) ? 1 : 0, max: 5);
 
         if (Npc.UIOnOff)
         {
@@ -104,7 +107,6 @@ public class Player : Singleton<Player>
     private T GetObject<T>(string layerName = "")
     {
         Collider2D hitCollider;
-
 
         if (!string.IsNullOrEmpty(layerName))
             hitCollider = Physics2D.OverlapBox(transform.position, transform.localScale, 0, 1 << LayerMask.NameToLayer(layerName));
@@ -185,6 +187,9 @@ public class Player : Singleton<Player>
             inventory.Add(item);
             Destroy(collision.gameObject);
         }
+
+        cgc = collision.GetComponent<CultivatedGroundContract>();
+        if(cgc!=null) Debug.Log(cgc.name);
     }
 
 

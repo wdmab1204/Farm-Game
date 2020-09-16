@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Inventory : MonoBehaviour
 {
     protected int index;
-    private readonly KeyCode[] keyCodes = {
+    protected readonly KeyCode[] keyCodes = {
          KeyCode.Alpha1,
          KeyCode.Alpha2,
          KeyCode.Alpha3,
@@ -65,9 +65,9 @@ public class Inventory : MonoBehaviour
     /// <param name="max">스크롤의 최대이동위치를 나타냅니다. 기본값은 9입니다.</param>
     public void ScrollControl(float scroll, int max = 9)
     {
-
         if (scroll > 0) index -= 1;
         else if (scroll < 0) index += 1;
+        else return;
 
         if (index < 0) index = 0;
         else if (index >= max) index = max - 1;

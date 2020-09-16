@@ -67,7 +67,7 @@ public class GrowSystem : MonoBehaviour
     public bool Harvest()
     {
 
-        Item crop = ItemManager.Instanse.GetItem(item.id + 100);
+        Item crop = ItemManager.Instance.GetItem(item.id + 100);
         if (crop != null && growPhase >= 3)
         {
             for (int i = 0; i < GetRandomInteger(); i++)

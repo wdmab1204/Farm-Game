@@ -22,7 +22,7 @@ public class Npc : Inventory
         npcUI.SetActive(false);
         foreach (ItemScriptableObject itemSO in npcSO.items)
         {
-            Item item = ItemManager.Instanse.GetItem(itemSO.id);
+            Item item = ItemManager.Instance.GetItem(itemSO.id);
             list.Add(item);
         }
     }

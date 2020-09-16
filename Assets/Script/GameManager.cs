@@ -26,6 +26,8 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
+        JsonHelper.Instance.LoadJson();
+
         canvas = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<Canvas>();
         truck = GameObject.FindGameObjectWithTag("Truck").GetComponent<Truck>();
 

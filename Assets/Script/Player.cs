@@ -29,7 +29,6 @@ public class Player : Singleton<Player>
     public Money money;
 
     [Header("ETC")]
-    public Grid grid;
     private Npc npc;
     private Truck truck;
     private Camera mainCamera;
@@ -46,7 +45,7 @@ public class Player : Singleton<Player>
 
     private void Start()
     {
-        JsonHelper.Instance.LoadJson();
+
     }
 
 
@@ -63,7 +62,8 @@ public class Player : Singleton<Player>
         }
         else
         {
-            inventory.ScrollControl(Input.GetAxis("Mouse ScrollWheel"));
+            if (inventory != null)
+                inventory.ScrollControl(Input.GetAxis("Mouse ScrollWheel"));
         }
         
 
@@ -101,7 +101,7 @@ public class Player : Singleton<Player>
     }
 
 
-    private T GetObject<T>(string layerName)
+    private T GetObject<T>(string layerName = "")
     {
         Collider2D hitCollider;
 

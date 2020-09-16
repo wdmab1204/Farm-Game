@@ -1867,7 +1867,7 @@ GameObject:
   - component: {fileID: 718904211}
   - component: {fileID: 718904210}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Time Up Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34623,7 +34623,7 @@ GameObject:
   - component: {fileID: 1303671976}
   - component: {fileID: 1303671975}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: Complete Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

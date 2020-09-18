@@ -11,8 +11,7 @@ public class Slot : MonoBehaviour
 
     private void Awake()
     {
-        Img = GetComponent<Image>();
-        text = transform.GetChild(0).GetComponent<Text>();
+
     }
 
     /// <summary>

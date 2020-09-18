@@ -198,16 +198,21 @@ public class Player : Singleton<Player>
         if(cgc!=null) Debug.Log(cgc.name);
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        cgc = null;
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.transform.CompareTag("Npc")) npc = collision.transform.GetComponent<Npc>();
         else if(collision.transform.CompareTag("Truck")) truck = collision.transform.GetComponent<Truck>();
     }
 
-
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnCollisionExit2D(Collision2D collision)
     {
-
+        npc = null;
+        truck = null;
     }
 
 }

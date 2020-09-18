@@ -32,7 +32,7 @@ public class ItemManager : Singleton<ItemManager>
         }
         if (item == null)
         {
-            Debug.LogWarning("Item not Found");
+            Debug.LogWarning("Item not Found, id : " + id);
         }
         return item;
     }

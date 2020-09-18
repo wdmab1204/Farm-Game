@@ -8,14 +8,14 @@ using System;
 class Serialization
 {
     [SerializeField]
-    List<Item> target;
+    Item[] items;
     [SerializeField]
     int money;
-    public List<Item> GetList() { return target; }
+    public Item[] GetItems() { return items; }
     public int GetMoney() { return money; }
-    public Serialization(List<Item> target, int money)
+    public Serialization(Item[] items, int money)
     {
-        this.target = target;
+        this.items = items;
         this.money = money;
     }
 }
@@ -50,7 +50,8 @@ public class JsonHelper : Singleton<JsonHelper>
     public void SaveJson()
     {
         List<Item> inventoryList = player.inventory.ListUpdate();
-        string jdata = JsonUtility.ToJson(new Serialization(inventoryList,777), prettyPrint: true);
+        Item[] items = inventoryList.ToArray();
+        string jdata = JsonUtility.ToJson(new Serialization(items,777), prettyPrint: true);
         File.WriteAllText(Application.streamingAssetsPath + "/inventory.json", jdata);
     }
 
@@ -64,7 +65,8 @@ public class JsonHelper : Singleton<JsonHelper>
         {
             string jdata = File.ReadAllText(Application.streamingAssetsPath + "/inventory.json");
             Serialization s = JsonUtility.FromJson<Serialization>(jdata);
-            player.inventory.list = s.GetList();
+            Item[] items = s.GetItems();
+            player.inventory.list = new List<Item>(items);
             player.money.SetMoney(s.GetMoney());
             //int coin = s.ToMoney();
             //player.money.money = coin;

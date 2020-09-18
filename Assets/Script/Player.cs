@@ -56,12 +56,13 @@ public class Player : Singleton<Player>
         float v = Input.GetAxisRaw("Vertical");
         movement = new Vector2(h, v);
 
-
-        cgc.ScrollControl(Input.GetKey(KeyCode.RightArrow) ? -1 : Input.GetKey(KeyCode.LeftArrow) ? 1 : 0, max: 5);
-
         if (Npc.UIOnOff)
         {
             npc.ScrollControl(Input.GetKeyDown(KeyCode.RightArrow) ? -1 : Input.GetKeyDown(KeyCode.LeftArrow) ? 1 : 0, max: 4);
+        }
+        else if (CultivatedGroundContract.UIOnOff)
+        {
+            cgc.ScrollControl(Input.GetKey(KeyCode.RightArrow) ? -1 : Input.GetKey(KeyCode.LeftArrow) ? 1 : 0, max: 5);
         }
         else
         {
@@ -82,6 +83,10 @@ public class Player : Singleton<Player>
             {
                 npc.On();
             }
+            if(cgc != null)
+            {
+                cgc.On();
+            }
             if(truck != null)
             {
                 Item item = inventory.GetItem();
@@ -92,15 +97,16 @@ public class Player : Singleton<Player>
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            npc.Off();
+            if (npc != null) npc.Off();
+            if (cgc != null) cgc.Off();
         }
     }
 
     private void FixedUpdate()
     {
-        if(!Npc.UIOnOff) Moving(movement);
-        npc = GetObject<Npc>("Npc");
-        truck = GetObject<Truck>("Truck");
+        if(!Npc.UIOnOff && !CultivatedGroundContract.UIOnOff) Moving(movement);
+        //npc = GetObject<Npc>("Npc");
+        //truck = GetObject<Truck>("Truck");
     }
 
 
@@ -190,6 +196,12 @@ public class Player : Singleton<Player>
 
         cgc = collision.GetComponent<CultivatedGroundContract>();
         if(cgc!=null) Debug.Log(cgc.name);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.CompareTag("Npc")) npc = collision.transform.GetComponent<Npc>();
+        else if(collision.transform.CompareTag("Truck")) truck = collision.transform.GetComponent<Truck>();
     }
 
 

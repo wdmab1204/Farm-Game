@@ -9,6 +9,7 @@ public class CultivatedGroundContract : Inventory
     public GameObject uiObject;
     private RectTransform rt;
     private int historyIndex;
+    public static bool UIOnOff;
 
     private bool canDo;
     private void Awake()
@@ -17,7 +18,8 @@ public class CultivatedGroundContract : Inventory
         historyIndex = 0;
         canDo = true;
         rt = uiObject.GetComponent<RectTransform>();
-        //uiObject.SetActive(false);
+        UIOnOff = false;
+        uiObject.SetActive(false);
     }
 
     public new void ScrollControl(float scroll, int max = 9)
@@ -58,11 +60,13 @@ public class CultivatedGroundContract : Inventory
 
     public void On()
     {
+        UIOnOff = true;
         uiObject.SetActive(true);
     }
 
     public void Off()
     {
+        UIOnOff = false;
         uiObject.SetActive(false);
     }
 }

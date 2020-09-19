@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 817888af65eb9aa42887ac954c946929, type: 3}
+  m_Name: 202_Potato
+  m_EditorClassIdentifier: 
+  id: 202
+  name: "\uAC10\uC790"
+  description: "\uC774\uAC70\uC2A8 \uAC10\uC790\uB2E4"
+  type: 2
+  cropType: 2
+  count: 1
+  sellingPrice: 23
+  purchasePrice: 175

@@ -305,6 +305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOver: {fileID: 1634739538}
+  sign: {fileID: 0}
 --- !u!4 &52217265
 Transform:
   m_ObjectHideFlags: 0

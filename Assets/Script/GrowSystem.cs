@@ -6,7 +6,6 @@ public class GrowSystem : MonoBehaviour
 {
     public float maxGrowTime;
     public Item item;
-    public GameObject itemPrefab;
     public int minDropCount = 1;
     public int maxDropCount = 1;
 
@@ -94,5 +93,4 @@ public class GrowSystem : MonoBehaviour
         int value = UnityEngine.Random.Range(minDropCount, maxDropCount);
         return value;
     }
-
 }

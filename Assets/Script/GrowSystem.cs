@@ -6,8 +6,6 @@ public class GrowSystem : MonoBehaviour
 {
     public float maxGrowTime;
     public Item item;
-    public int minDropCount = 1;
-    public int maxDropCount = 1;
 
     private Clock clock;
     private float startTime;
@@ -17,37 +15,60 @@ public class GrowSystem : MonoBehaviour
     private int growPhase = 1;
     private Animator ac;
 
-
-    void Start()
+    private void Awake()
     {
         clock = FindObjectOfType<Clock>();
         startTime = clock.currentTime;
         ac = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
-        originalPosition = transform.position;
+    }
+
+    void Start()
+    {
         if (sprite.sprite.rect.size.y > 16f)
         {
             //originalPosition = new Vector3(originalPosition.x, originalPosition.y - 0.5f, originalPosition.z);
         }
 
         col2d = transform.parent.gameObject.GetComponent<Collider2D>();
+        col2d.isTrigger = false;
+        maxGrowTime = item.growTime;
+        originalPosition = transform.position;
+        StartCoroutine(StartGrowing());
     }
 
 
-    void Update()
+    //void Update()
+    //{
+    //    if (growPhase < 3)
+    //    {
+    //        float t = clock.currentTime - startTime;
+    //        if (maxGrowTime / (3 - growPhase) <= t)
+    //        {
+    //            growPhase++;
+    //            ac.SetInteger("GrowPhase", growPhase);
+    //        }
+    //    }
+    //    else if (growPhase >= 3)
+    //    {
+    //        CheckSpriteWidth();
+    //    }
+
+    //}
+
+    private void Update()
     {
-        if (growPhase < 3)
-        {
-            float t = clock.currentTime - startTime;
-            if (maxGrowTime / (3 - growPhase) <= t)
-            {
-                growPhase++;
-                ac.SetInteger("GrowPhase", growPhase);
-                col2d.isTrigger = true;
-            }
-        }
-        else if (growPhase >= 3) col2d.isTrigger = false;
         CheckSpriteWidth();
+    }
+
+    IEnumerator StartGrowing()
+    {
+        while (growPhase < 3)
+        {
+            yield return new WaitForSeconds(maxGrowTime / 3);
+            growPhase++;
+            ac.SetInteger("GrowPhase", growPhase);
+        }
     }
 
     private void CheckSpriteWidth()
@@ -57,19 +78,14 @@ public class GrowSystem : MonoBehaviour
         {
             transform.position = new Vector2(originalPosition.x, originalPosition.y + 0.5f);
         }
-        else
-        {
-            transform.position = originalPosition;
-        }
     }
 
     public bool Harvest()
     {
-
         Item crop = ItemManager.Instance.GetItem(item.id + 100);
         if (crop != null && growPhase >= 3)
         {
-            for (int i = 0; i < GetRandomInteger(); i++)
+            for (int i = 0; i < GetRandomInteger(crop.minDropCount,crop.maxDropCount); i++)
             {
                 GameObject obj = new GameObject(crop.name);
                 obj.transform.position = transform.parent.position;
@@ -80,6 +96,7 @@ public class GrowSystem : MonoBehaviour
                 col.enabled = false;
                 col.isTrigger = true;
                 obj.AddComponent<SmoothMove>().speed = 3f;
+                obj.AddComponent<PositionRendererSorter>();
                 obj.tag = "DropItem";
 
                 DropItem di = obj.AddComponent<DropItem>();
@@ -89,7 +106,7 @@ public class GrowSystem : MonoBehaviour
         return true;
     }
 
-    private int GetRandomInteger() {
+    private int GetRandomInteger(int minDropCount, int maxDropCount) {
         int value = UnityEngine.Random.Range(minDropCount, maxDropCount);
         return value;
     }

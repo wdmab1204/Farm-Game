@@ -8,7 +8,10 @@
             "sellingPrice": 0,
             "purchasePrice": 0,
             "type": 1,
-            "cropType": 0
+            "cropType": 0,
+            "growTime": 15,
+            "minDropCount": 1,
+            "maxDropCount": 1 
         },
         {
             "id": 400,
@@ -18,7 +21,10 @@
             "sellingPrice": 0,
             "purchasePrice": 0,
             "type": 3,
-            "cropType": 0
+            "cropType": 0,
+            "growTime": 0,
+            "minDropCount": 1,
+            "maxDropCount": 1 
         },
         {
             "id": 200,
@@ -28,7 +34,10 @@
             "sellingPrice": 33,
             "purchasePrice": 77,
             "type": 2,
-            "cropType": 1
+            "cropType": 1,
+            "growTime": 0,
+            "minDropCount": 1,
+            "maxDropCount": 2 
         }
     ],
     "money": 777

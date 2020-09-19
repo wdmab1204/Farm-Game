@@ -13,4 +13,7 @@ public class ItemScriptableObject : ScriptableObject
     public int count;
     public int sellingPrice;
     public int purchasePrice;
+    public float growTime;
+    public int minDropCount;
+    public int maxDropCount;
 }

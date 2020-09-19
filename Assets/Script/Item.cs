@@ -10,7 +10,10 @@ public class Item
     public int count;
     public int sellingPrice;
     public int purchasePrice;
-    
+    public float growTime;
+    public int minDropCount;
+    public int maxDropCount;
+
     private Sprite icon;
     public Sprite Icon
     {
@@ -56,7 +59,7 @@ public class Item
         Vegetable //채소류
     }
 
-    public Item(int id, string name, string itemDescription, ItemType type, CropType cropType, int sellingPrice, int purchasePrice, int count = 1)
+    public Item(int id, string name, string itemDescription, ItemType type, CropType cropType, int sellingPrice, int purchasePrice, float growTime, int minDropCount, int maxDropCount, int count = 1)
     {
         this.id = id;
         this.name = name;
@@ -66,6 +69,9 @@ public class Item
         this.count = count;
         this.sellingPrice = sellingPrice;
         this.purchasePrice = purchasePrice;
+        this.growTime = growTime;
+        this.minDropCount = minDropCount;
+        this.maxDropCount = maxDropCount;
     }
 
     public Item(ItemScriptableObject obj)
@@ -78,6 +84,9 @@ public class Item
         this.count = obj.count;
         this.sellingPrice = obj.sellingPrice;
         this.purchasePrice = obj.purchasePrice;
+        this.growTime = obj.growTime;
+        this.minDropCount = obj.minDropCount;
+        this.maxDropCount = obj.maxDropCount;
     }
 
     public object Clone()

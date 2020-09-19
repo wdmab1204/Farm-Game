@@ -1299,6 +1299,9 @@ MonoBehaviour:
     count: 0
     sellingPrice: 0
     purchasePrice: 0
+    growTime: 0
+    minDropCount: 0
+    maxDropCount: 0
     type: 0
     cropType: 0
   Img: {fileID: 638607386}
@@ -1713,6 +1716,9 @@ MonoBehaviour:
     count: 0
     sellingPrice: 0
     purchasePrice: 0
+    growTime: 0
+    minDropCount: 0
+    maxDropCount: 0
     type: 0
     cropType: 0
   Img: {fileID: 81148060}
@@ -33441,6 +33447,9 @@ MonoBehaviour:
     count: 0
     sellingPrice: 0
     purchasePrice: 0
+    growTime: 0
+    minDropCount: 0
+    maxDropCount: 0
     type: 0
     cropType: 0
   Img: {fileID: 1242213826}
@@ -33613,6 +33622,9 @@ MonoBehaviour:
     count: 0
     sellingPrice: 0
     purchasePrice: 0
+    growTime: 0
+    minDropCount: 0
+    maxDropCount: 0
     type: 0
     cropType: 0
   Img: {fileID: 1091744098}
@@ -33676,6 +33688,9 @@ MonoBehaviour:
     count: 0
     sellingPrice: 0
     purchasePrice: 0
+    growTime: 0
+    minDropCount: 0
+    maxDropCount: 0
     type: 0
     cropType: 0
   Img: {fileID: 1267547538}
@@ -34452,6 +34467,9 @@ MonoBehaviour:
     count: 0
     sellingPrice: 0
     purchasePrice: 0
+    growTime: 0
+    minDropCount: 0
+    maxDropCount: 0
     type: 0
     cropType: 0
   Img: {fileID: 1294163712}
@@ -34830,6 +34848,9 @@ MonoBehaviour:
     count: 0
     sellingPrice: 0
     purchasePrice: 0
+    growTime: 0
+    minDropCount: 0
+    maxDropCount: 0
     type: 0
     cropType: 0
   Img: {fileID: 1431095622}
@@ -35351,6 +35372,9 @@ MonoBehaviour:
     count: 0
     sellingPrice: 0
     purchasePrice: 0
+    growTime: 0
+    minDropCount: 0
+    maxDropCount: 0
     type: 0
     cropType: 0
   Img: {fileID: 1743630013}
@@ -35599,6 +35623,9 @@ MonoBehaviour:
     count: 0
     sellingPrice: 0
     purchasePrice: 0
+    growTime: 0
+    minDropCount: 0
+    maxDropCount: 0
     type: 0
     cropType: 0
   Img: {fileID: 1823340169}
@@ -35774,6 +35801,9 @@ MonoBehaviour:
     count: 0
     sellingPrice: 0
     purchasePrice: 0
+    growTime: 0
+    minDropCount: 0
+    maxDropCount: 0
     type: 0
     cropType: 0
   Img: {fileID: 1882041640}
@@ -35971,6 +36001,9 @@ MonoBehaviour:
     count: 0
     sellingPrice: 0
     purchasePrice: 0
+    growTime: 0
+    minDropCount: 0
+    maxDropCount: 0
     type: 0
     cropType: 0
   Img: {fileID: 1891653600}
@@ -36482,6 +36515,9 @@ MonoBehaviour:
     count: 0
     sellingPrice: 0
     purchasePrice: 0
+    growTime: 0
+    minDropCount: 0
+    maxDropCount: 0
     type: 0
     cropType: 0
   Img: {fileID: 2080613197}
@@ -36657,6 +36693,9 @@ MonoBehaviour:
     count: 0
     sellingPrice: 0
     purchasePrice: 0
+    growTime: 0
+    minDropCount: 0
+    maxDropCount: 0
     type: 0
     cropType: 0
   Img: {fileID: 2134320915}
@@ -36752,6 +36791,11 @@ PrefabInstance:
       propertyPath: money
       value: 
       objectReference: {fileID: 1225261933}
+    - target: {fileID: 1471972883118411036, guid: 519590c68fd7ad149ab7f480ef8affa1,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1471972883118411037, guid: 519590c68fd7ad149ab7f480ef8affa1,
         type: 3}
       propertyPath: m_LocalPosition.x

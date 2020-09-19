@@ -4,7 +4,7 @@
             "id": 100,
             "name": "밀 씨앗",
             "itemDescription": "밀을 심을 수 있다.",
-            "count": 10,
+            "count": 9,
             "sellingPrice": 0,
             "purchasePrice": 0,
             "type": 1,
@@ -21,12 +21,12 @@
             "cropType": 0
         },
         {
-            "id": 201,
+            "id": 200,
             "name": "밀",
-            "itemDescription": "밀이다.",
-            "count": 3,
-            "sellingPrice": 55,
-            "purchasePrice": 111,
+            "itemDescription": "밀이다",
+            "count": 1,
+            "sellingPrice": 33,
+            "purchasePrice": 77,
             "type": 2,
             "cropType": 1
         }

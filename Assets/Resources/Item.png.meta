@@ -7,7 +7,7 @@ TextureImporter:
     second: 100
   - first:
       213: -1463922387993793746
-    second: 101
+    second: 100
   - first:
       213: -6482214888948375821
     second: 102
@@ -37,7 +37,7 @@ TextureImporter:
     second: 200
   - first:
       213: -4618197095799520207
-    second: 201
+    second: 200
   - first:
       213: 8597797646119509961
     second: 202
@@ -168,7 +168,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 100
+      name: 101
       rect:
         serializedVersion: 2
         x: 3
@@ -189,7 +189,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 101
+      name: 100
       rect:
         serializedVersion: 2
         x: 19
@@ -378,7 +378,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 200
+      name: 201
       rect:
         serializedVersion: 2
         x: 3
@@ -399,7 +399,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 201
+      name: 200
       rect:
         serializedVersion: 2
         x: 19
@@ -722,7 +722,7 @@ TextureImporter:
         width: 10
         height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

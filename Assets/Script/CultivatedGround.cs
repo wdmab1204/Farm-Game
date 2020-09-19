@@ -157,7 +157,7 @@ public class CultivatedGround : MonoBehaviour
         numberArray[number] = false;
         cropArray[number] = cropObject;
 
-        ArrayLog(numberArray);
+        //ArrayLog(numberArray);
     }
 
 

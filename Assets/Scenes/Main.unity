@@ -33259,8 +33259,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 641442509
-  m_SortingLayer: 4
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -6369610067278917079, guid: 68955f69f5598f348a7758cdae60416b,
     type: 3}
@@ -35862,8 +35862,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 641442509
-  m_SortingLayer: 4
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -6544297736868406406, guid: 68955f69f5598f348a7758cdae60416b,
     type: 3}
@@ -36752,11 +36752,6 @@ PrefabInstance:
       propertyPath: money
       value: 
       objectReference: {fileID: 1225261933}
-    - target: {fileID: 1471972883118411034, guid: 519590c68fd7ad149ab7f480ef8affa1,
-        type: 3}
-      propertyPath: grid
-      value: 
-      objectReference: {fileID: 255928758}
     - target: {fileID: 1471972883118411037, guid: 519590c68fd7ad149ab7f480ef8affa1,
         type: 3}
       propertyPath: m_LocalPosition.x

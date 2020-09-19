@@ -28,7 +28,7 @@ public class CultivatedGround : MonoBehaviour
     {
         tileList = new List<GameObject>();
         col = GetComponent<CompositeCollider2D>();
-        lengthArray = new int[3] { 5, 5, 7 };
+        lengthArray = new int[3] { 3, 5, 7 };
         index = -1;
         vertexTile = new GameObject[4];
         vertexIndex = 0;

@@ -33,10 +33,6 @@ public class CultivatedGround : MonoBehaviour
         vertexTile = new GameObject[4];
         vertexIndex = 0;
     }
-    private void Start()
-    {
-        GenerateTile();
-    }
 
     private void RegenerateCollider()
     {
@@ -52,11 +48,12 @@ public class CultivatedGround : MonoBehaviour
     }
 
     [ContextMenu("UpdateTile")]
-    public void GenerateTile()
+    public void GenerateTile(int level)
     {
+        index = level - 1;
         if (index >= lengthArray.Length) return;
 
-        index++;
+        //index++;
         int rows = lengthArray[index], cols = lengthArray[index];
         int minRow = -rows / 2, maxRow = rows / 2;
         int minCol = -cols / 2, maxCol = cols / 2;

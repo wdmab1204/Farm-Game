@@ -20,3 +20,6 @@ MonoBehaviour:
   count: 1
   sellingPrice: 40
   purchasePrice: 212
+  growTime: 0
+  minDropCount: 1
+  maxDropCount: 1

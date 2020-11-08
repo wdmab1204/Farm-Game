@@ -16,4 +16,10 @@ MonoBehaviour:
   name: "\uC0BD"
   description: "\uC791\uBB3C\uC744 \uCE98\uC218 \uC788\uB294 \uB3C4\uAD6C\uC774\uB2E4"
   type: 3
+  cropType: 0
   count: 1
+  sellingPrice: 0
+  purchasePrice: 0
+  growTime: 0
+  minDropCount: 1
+  maxDropCount: 1

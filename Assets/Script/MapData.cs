@@ -5,7 +5,7 @@ using UnityEngine;
 public class MapData : Singleton<MapData>
 {
     public MapDataScriptableObject[] mdso;
-    public int index
+    public int Length
     {
         get
         {

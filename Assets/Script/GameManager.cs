@@ -9,21 +9,17 @@ public class GameManager : Singleton<GameManager>
 {
     public GameOver gameOver;
     public GameObject signObject;
-    public int[] groundLevel; // 1..2..3
-    private float[] percent; //시세할인가
     private bool firstStart = true; //최초로 시작하는건가?(맞다면 true)
     private MapDataScriptableObject mdso = null;
 
     public GameObject ajussiObj;
     public GameObject halmoneyObj;
     public GameObject truckObj;
-    public GameObject cgObj;
+    public GameObject[] cgObj; //5개
 
-    private void Awake()
+    private void Start()
     {
-        DontDestroyOnLoad(gameObject);
-        groundLevel = new int[5];
-        percent = new float[4];
+        GameStart();
     }
 
     /// <summary>
@@ -39,21 +35,33 @@ public class GameManager : Singleton<GameManager>
             firstStart = false;
         }
 
-        GameObject obj = Instantiate(ajussiObj);
-        obj.transform.position = mdso.ajussiPosition;
+        //GameObject obj = Instantiate(ajussiObj);
+        //obj.transform.position = mdso.ajussiPosition;
 
-        obj = Instantiate(halmoneyObj);
-        obj.transform.position = mdso.halmoneyPosition;
+        //obj = Instantiate(halmoneyObj);
+        //obj.transform.position = mdso.halmoneyPosition;
 
-        obj = Instantiate(truckObj);
-        obj.transform.position = mdso.truckPosition;
+        //obj = Instantiate(truckObj);
+        //obj.transform.position = mdso.truckPosition;
+
+        ajussiObj.transform.position = mdso.ajussiPosition;
+        halmoneyObj.transform.position = mdso.halmoneyPosition;
+        truckObj.transform.position = mdso.truckPosition;
 
         for(int i=0; i<mdso.CGPosition.Length; i++)
         {
-            obj = Instantiate(cgObj);
-            obj.transform.position = mdso.CGPosition[i];
-            CultivatedGround cg = obj.GetComponent<CultivatedGround>();
-            cg.GenerateTile(groundLevel[i]);
+            //obj = Instantiate(cgObj);
+            //obj.transform.position = mdso.CGPosition[i];
+            //CultivatedGround cg = obj.GetComponent<CultivatedGround>();
+            //cg.GenerateTile(groundLevel[i]);
+
+            cgObj[i].transform.position = mdso.CGPosition[i];
+            if (GameData.groundLevel[i] > 0) //최소 1레벨 이상이라면
+            {
+                CultivatedGround cg = cgObj[i].GetComponent<CultivatedGround>();
+                cg.GenerateTile(GameData.groundLevel[i]);
+            }
+            
         }
     }
 
@@ -65,11 +73,11 @@ public class GameManager : Singleton<GameManager>
         float minPercent = -15.0f;
         float maxPercent = 15.0f;
         
-        for(int i=0; i<percent.Length; i++)
+        for(int i=0; i<GameData.percent.Length; i++)
         {
             float value = Random.Range(minPercent, maxPercent);
             int integer = (int)value;
-            percent[i] = (float)integer;
+            GameData.percent[i] = (float)integer;
         }
     }
 }

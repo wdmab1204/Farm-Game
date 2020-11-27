@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using System;
 using UnityEngine.Tilemaps;
 using System.Runtime.CompilerServices;
+using UnityEngine.SceneManagement;
 
 public class Player : Singleton<Player>
 {
@@ -205,8 +206,13 @@ public class Player : Singleton<Player>
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.transform.CompareTag("Npc")) npc = collision.transform.GetComponent<Npc>();
-        else if(collision.transform.CompareTag("Truck")) truck = collision.transform.GetComponent<Truck>();
+        Transform t = collision.transform;
+        if (t.CompareTag("Npc")) npc = collision.transform.GetComponent<Npc>();
+        else if(t.CompareTag("Truck")) truck = collision.transform.GetComponent<Truck>();
+        else if (t.CompareTag("Warp"))
+        {
+            SceneManager.LoadScene("Main");
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)

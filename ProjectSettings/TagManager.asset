@@ -10,6 +10,7 @@ TagManager:
   - Npc
   - MainCanvas
   - Truck
+  - Warp
   layers:
   - Default
   - TransparentFX

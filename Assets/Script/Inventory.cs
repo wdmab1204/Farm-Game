@@ -226,7 +226,7 @@ public class Inventory : MonoBehaviour
 
                         GrowSystem gs = obj.GetComponentInChildren<GrowSystem>();
                         gs.item = item;
-                        cg.SetCrop(gs, tilePos - cg.transform.localPosition, obj);
+                        //cg.SetCrop(gs, tilePos - cg.transform.localPosition, obj);
                     }
                 }
 
@@ -251,7 +251,7 @@ public class Inventory : MonoBehaviour
                 {
                     if (!_cg.CheckCropTile(tilePos - _cg.transform.localPosition))
                     {
-                        _cg.DeleteCrop(tilePos - _cg.transform.localPosition);
+                        //_cg.DeleteCrop(tilePos - _cg.transform.localPosition);
                     }
                 }
 

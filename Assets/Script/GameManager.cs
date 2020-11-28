@@ -55,7 +55,7 @@ public class GameManager : Singleton<GameManager>
             //CultivatedGround cg = obj.GetComponent<CultivatedGround>();
             //cg.GenerateTile(groundLevel[i]);
 
-            cgObj[i].transform.position = mdso.CGPosition[i];
+            cgObj[i].transform.localPosition = mdso.CGPosition[i];
             if (GameData.groundLevel[i] > 0) //최소 1레벨 이상이라면
             {
                 CultivatedGround cg = cgObj[i].GetComponent<CultivatedGround>();

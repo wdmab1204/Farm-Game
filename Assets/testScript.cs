@@ -7,12 +7,11 @@ using UnityEngine.UI;
 
 public class testScript : MonoBehaviour
 {
-    private Text text;
-    public ScrambleMode sm;
+    public int number;
     private void Start()
     {
-        text = GetComponent<Text>();
-        text.DOText("Hello World", 3.0f, true, sm);
+        Debug.Log("Position : " + transform.position);
+        Debug.Log("LocalPosition : " + transform.localPosition);
     }
 
 }

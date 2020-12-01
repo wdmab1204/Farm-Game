@@ -16,11 +16,13 @@ public class CultivatedGround : MonoBehaviour
     public Item.CropType cropType;
     private CompositeCollider2D col;
     private Vector3 gridPos;
+    private List<GameObject> cropObjList;
 
     private void Awake()
     {
         col = GetComponent<CompositeCollider2D>();
         gridPos = GameObject.Find("Grid").transform.position;
+        cropObjList = new List<GameObject>();
     }
 
     private void RegenerateCollider()
@@ -74,25 +76,59 @@ public class CultivatedGround : MonoBehaviour
 
                 obj.transform.localPosition = Vector3.zero;
                 obj.transform.localPosition += targetPos - gridPos;
+
             }
         }
         
         Invoke("RegenerateCollider", 0.1f);
     }
 
-    public void SetCrop()
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="gs">플레이어가 심을 농작물</param>
+    /// <param name="tilePos">농작물 위치</param>
+    public void SetCrop(Item item, Vector3 tilePos)
     {
+        //땅에 작물심기
+        GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/" + item.id), transform);
+        obj.transform.position = tilePos;
 
+        GrowSystem gs = obj.GetComponentInChildren<GrowSystem>();
+        gs.item = item;
+
+        if (gs.item.cropType == this.cropType)
+        {
+            gs.maxGrowTime -= gs.maxGrowTime * 0.3f; //0.3배 성장속도 증가!
+        }
+
+        cropObjList.Add(obj);
     }
 
 
-    public void RemoveCrop()
+    public void RemoveCrop(Vector3 tilePos)
     {
-
+        foreach(GameObject cropObj in cropObjList)
+        {
+            if((cropObj.transform.localPosition + gridPos) == tilePos)
+            {
+                GrowSystem gs = cropObj.transform.GetChild(0).GetComponent<GrowSystem>();
+                gs.Harvest();
+                Destroy(cropObj);
+                return;
+            }
+        }
     }
 
-    public bool CheckCropTile(Vector3 v)
+    public bool CheckCrop(Vector3 tilePos)
     {
-        return true;
+        foreach(GameObject cropObj in cropObjList)
+        {
+            if((cropObj.transform.localPosition + gridPos) == tilePos)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

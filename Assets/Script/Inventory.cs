@@ -215,18 +215,19 @@ public class Inventory : MonoBehaviour
 
                 if (col != null && col.TryGetComponent(out CultivatedGround cg))
                 {
-                    if (cg.CheckCropTile(tilePos - cg.transform.localPosition))
+                    if (!cg.CheckCrop(tilePos - cg.transform.localPosition))
                     {
                         //땅에 작물심기
-                        GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/" + item.id));
-                        obj.transform.position = tilePos;
+                        //GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/" + item.id));
+                        //obj.transform.position = tilePos;
 
                         //씨앗 소모하기
                         Add(item, -1);
 
-                        GrowSystem gs = obj.GetComponentInChildren<GrowSystem>();
-                        gs.item = item;
-                        //cg.SetCrop(gs, tilePos - cg.transform.localPosition, obj);
+                        //GrowSystem gs = obj.GetComponentInChildren<GrowSystem>();
+                        //gs.item = item;
+                        //cg.SetCrop(gs, tilePos - cg.transform.localPosition);
+                        cg.SetCrop(item, tilePos);
                     }
                 }
 
@@ -249,9 +250,9 @@ public class Inventory : MonoBehaviour
                 //}
                 if (col != null && col.TryGetComponent(out CultivatedGround _cg))
                 {
-                    if (!_cg.CheckCropTile(tilePos - _cg.transform.localPosition))
+                    if (_cg.CheckCrop(tilePos - _cg.transform.localPosition))
                     {
-                        //_cg.DeleteCrop(tilePos - _cg.transform.localPosition);
+                        _cg.RemoveCrop(tilePos - _cg.transform.localPosition);
                     }
                 }
 

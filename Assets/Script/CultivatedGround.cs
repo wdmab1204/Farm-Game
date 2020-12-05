@@ -114,6 +114,7 @@ public class CultivatedGround : MonoBehaviour
             {
                 GrowSystem gs = cropObj.transform.GetChild(0).GetComponent<GrowSystem>();
                 gs.Harvest();
+                cropObjList.Remove(cropObj);
                 Destroy(cropObj);
                 return;
             }

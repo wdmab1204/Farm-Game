@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Ajussi
   m_EditorClassIdentifier: 
   items:
-  - {fileID: 11400000, guid: 935b3f2a269e1ed4b9bfaef2a7ca4539, type: 2}
-  - {fileID: 11400000, guid: 83db720ea1cfa1c4382f211e6cee4a55, type: 2}
+  - {fileID: 11400000, guid: 2fccfedb5fac694498f08e0c62fcdcdd, type: 2}
+  - {fileID: 11400000, guid: 9bdf53544df4c874ca32805f30ab5213, type: 2}

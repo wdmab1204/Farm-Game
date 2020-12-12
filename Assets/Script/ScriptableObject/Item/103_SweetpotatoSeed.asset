@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 817888af65eb9aa42887ac954c946929, type: 3}
-  m_Name: 200_Wheat
-  m_EditorClassIdentifier: Assembly-CSharp::ItemScriptableObject
-  id: 200
-  name: "\uBC00"
-  description: "\uBC00\uC774\uB2E4"
-  type: 2
-  cropType: 1
-  count: 1
+  m_Name: 103_Sweet
+  m_EditorClassIdentifier: 
+  id: 0
+  name: 
+  description: 
+  type: 0
+  cropType: 0
+  count: 0
   sellingPrice: 0
-  purchasePrice: 77
+  purchasePrice: 0
   growTime: 0
-  minDropCount: 1
-  maxDropCount: 1
+  minDropCount: 0
+  maxDropCount: 0

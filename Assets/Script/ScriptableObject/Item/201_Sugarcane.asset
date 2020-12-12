@@ -18,8 +18,8 @@ MonoBehaviour:
   type: 2
   cropType: 1
   count: 1
-  sellingPrice: 55
-  purchasePrice: 111
+  sellingPrice: 0
+  purchasePrice: 64
   growTime: 0
   minDropCount: 1
   maxDropCount: 1

@@ -118,6 +118,5 @@ public class CultivatedGroundContract : Inventory
             GameData.groundLevel[index] += 1;
             texts[index].text = "Level : " + GameData.groundLevel[index].ToString();
         }
-            
     }
 }

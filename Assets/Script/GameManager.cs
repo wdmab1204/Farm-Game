@@ -56,11 +56,9 @@ public class GameManager : Singleton<GameManager>
             //cg.GenerateTile(groundLevel[i]);
 
             cgObj[i].transform.localPosition = mdso.CGPosition[i];
-            if (GameData.groundLevel[i] > 0) //최소 1레벨 이상이라면
-            {
-                CultivatedGround cg = cgObj[i].GetComponent<CultivatedGround>();
-                cg.GenerateTile(GameData.groundLevel[i]);
-            }
+
+            CultivatedGround cg = cgObj[i].GetComponent<CultivatedGround>();
+            cg.GenerateTile(GameData.groundLevel[i]);
             
         }
     }
@@ -79,5 +77,10 @@ public class GameManager : Singleton<GameManager>
             int integer = (int)value;
             GameData.percent[i] = (float)integer;
         }
+    }
+
+    public void GameOver()
+    {
+        gameOver.TimeUp();
     }
 }

@@ -26,8 +26,6 @@ public class GameOver : MonoBehaviour
 
     private void Start()
     {
-        JsonHelper.Instance.LoadJson();
-
         canvas = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<Canvas>();
         truck = GameObject.FindGameObjectWithTag("Truck").GetComponent<Truck>();
 
@@ -66,20 +64,21 @@ public class GameOver : MonoBehaviour
                     {
                         RectTransform rt;
                         Text text;
-                        int resultMoney = 0;
+                        int sum = 0;
                         for (int i = 0; i < resultImageChildArray.Length; i++)
                         {
                             text = resultImageChildArray[i].GetChild(1).GetComponent<Text>();
                             int money = gold[i + 1];//(gold[i + 1] >= maxMoney) ? gold[i + 1] : maxMoney;
-                            resultMoney += money;
+                            sum += money;
 
 
                             rt = resultImageChildArray[i].GetComponent<RectTransform>();
                             rt.DOAnchorPosX(-Screen.width, 1.5f).SetEase(resultEnterEase).SetUpdate(true).SetDelay(i * 0.25f);
 
-                            text.DOText("Hello World", 1.5f, true, moneyScrambleMode).SetDelay(i * 0.25f + 0.25f).SetUpdate(true);
+                            text.DOText(money.ToString(), 1.5f, true, moneyScrambleMode).SetDelay(i * 0.25f + 0.25f).SetUpdate(true);
                         }
-                        Player.Instance.money.SaveMoney(5000, 1.5f);
+                        //Player.Instance.money.SaveMoney(5000, 1.5f);
+                        GameData.money = Player.Instance.money.GetMoney() + sum;
                     });
 
 

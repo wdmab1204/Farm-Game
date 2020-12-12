@@ -42,12 +42,18 @@ public class Player : Singleton<Player>
         rb = GetComponent<Rigidbody2D>();
         mainCamera = Camera.main;
         offset = transform.position - mainCamera.transform.position;
+        if (inventory != null) inventory.list = new List<Item>(GameData.items);
     }
 
 
     private void Start()
     {
-
+        if(JsonHelper.isLoaded == false)
+        {
+            JsonHelper.Instance.LoadJson();
+        }
+        if(money != null) money.LoadMoney();
+        if (inventory != null) inventory.Refresh();
     }
 
 

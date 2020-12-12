@@ -17,12 +17,14 @@ public class CultivatedGround : MonoBehaviour
     private CompositeCollider2D col;
     private Vector3 gridPos;
     private List<GameObject> cropObjList;
+    private Transform signObj;
 
     private void Awake()
     {
         col = GetComponent<CompositeCollider2D>();
         gridPos = GameObject.Find("Grid").transform.position;
         cropObjList = new List<GameObject>();
+        signObj = transform.GetChild(0);
     }
 
     private void RegenerateCollider()
@@ -33,7 +35,9 @@ public class CultivatedGround : MonoBehaviour
     public void GenerateTile(int level)
     {
         if (level < 1 || level > 3) return;
-        
+
+        Destroy(signObj.gameObject);
+
         //3 = 1*3-(1-1)
         //5 = 2*3-(2-1)
         //7 = 3*3-(3-1)

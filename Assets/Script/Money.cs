@@ -26,13 +26,14 @@ public class Money : MonoBehaviour
         text.text = this.money.ToString();
     }
 
-    public bool UseMoney(int money)
+    public bool UseMoney(int money, float dotweenDelay = 0)
     {
         int result = this.money - money;
         if (result >= Constants.MIN_MONEY)
         {
             this.money = result;
             text.text = this.money.ToString();
+            text.DOText(this.money.ToString(), 3.0f, true, ScrambleMode.Numerals).SetDelay(dotweenDelay).SetUpdate(true);
             return true;
         }
         else
@@ -47,6 +48,13 @@ public class Money : MonoBehaviour
         this.money += money;
         text.DOText(money.ToString(), 3.0f, true, ScrambleMode.Numerals).SetDelay(dotweenDelay).SetUpdate(true);
         //text.text = this.money.ToString();
+    }
+
+    public void LoadMoney()
+    {
+        int money = GameData.money;
+        this.money = money;
+        text.text = money.ToString();
     }
 
     public int GetMoney()

@@ -26,6 +26,7 @@ public class JsonHelper : Singleton<JsonHelper>
 
     public ItemScriptableObject itemobj;
     private Player player;
+    public static bool isLoaded = false;
 
     private void Awake()
     {
@@ -65,18 +66,18 @@ public class JsonHelper : Singleton<JsonHelper>
         {
             string jdata = File.ReadAllText(Application.streamingAssetsPath + "/inventory.json");
             Serialization s = JsonUtility.FromJson<Serialization>(jdata);
-            Item[] items = s.GetItems();
-            player.inventory.list = new List<Item>(items);
-            player.money.SetMoney(s.GetMoney());
-            //int coin = s.ToMoney();
-            //player.money.money = coin;
+            //Item[] items = s.GetItems();
+            //player.inventory.list = new List<Item>(items);
+            GameData.items = s.GetItems();
+            GameData.money = s.GetMoney();
+            isLoaded = true;
         }
         catch(Exception e)
         {
             Debug.Log(e.ToString());
         }
-        
-        player.inventory.Refresh();
+
+        if (player.inventory != null) player.inventory.Refresh();
         
     }
 

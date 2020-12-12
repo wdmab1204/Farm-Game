@@ -35,6 +35,7 @@ public class Clock : MonoBehaviour
                     if (Hour == 18)
                     {
                         Day = false; //시간정지.
+                        GameManager.Instance.GameOver();
                     }
                 }
                 tic_toc = 0;

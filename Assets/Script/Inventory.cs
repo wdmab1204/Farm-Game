@@ -169,7 +169,7 @@ public class Inventory : MonoBehaviour
     /// 현재 슬롯의 아이템들을 기준으로 리스트를 업데이트합니다, 기존의 리스트 데이터는 사라집니다.
     /// </summary>
     /// <returns>최종적으로 업데이트된 list를 반환합니다.</returns>
-    public List<Item> ListUpdate()
+    public List<Item> GetCurrentList()
     {
         List<Item> list = new List<Item>();
         for (int i = 0; i < slots.Length; i++)

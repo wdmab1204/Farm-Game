@@ -24,40 +24,17 @@ public class Item
     public int id;
     public string name;
     public string itemDescription;
-    public int count;
+    public int count = 1;
     public int sellingPrice;
     public int purchasePrice;
     public float growTime;
     public int minDropCount;
     public int maxDropCount;
-
-    private Sprite icon;
-    public Sprite Icon
-    {
-        get
-        {
-            if (icon == null)
-            {
-                Sprite[] sprites = Resources.LoadAll<Sprite>("item");
-                foreach (Sprite sprite in sprites)
-                {
-                    if (sprite.name.Equals(id.ToString()))
-                    {
-                        this.icon = sprite;
-                        break;
-                    }
-                }
-
-                if (icon == null)
-                {
-                    return null;
-                }
-            }
-            return icon;
-        }
-    }
+    public Sprite Icon;
     public ItemType type;
     public CropType cropType;
+    public int minInventoryCount;
+    public int maxInventoryCount;
 
     public Item(int id, string name, string itemDescription, ItemType type, CropType cropType, int sellingPrice, int purchasePrice, float growTime, int minDropCount, int maxDropCount, int count = 1)
     {
@@ -89,6 +66,22 @@ public class Item
         this.maxDropCount = obj.maxDropCount;
     }
 
+    public Item(TBL_Item tBL_Item)
+    {
+        this.id = tBL_Item.Index;
+        this.name = tBL_Item.name;
+        this.itemDescription = tBL_Item.Description;
+        this.Icon = tBL_Item.Icon;
+        this.type = tBL_Item.ItemType;
+        this.cropType = tBL_Item.CropType;
+        this.sellingPrice = tBL_Item.SellingPrice;
+        this.purchasePrice = tBL_Item.PurchasePrice;
+        this.minDropCount = tBL_Item.MinDropCount;
+        this.maxDropCount = tBL_Item.MaxDropCount;
+        this.minInventoryCount = tBL_Item.MinInventoryCount;
+        this.maxInventoryCount = tBL_Item.MaxInventoryCount;
+    }
+    
     public object Clone()
     {
         return this.MemberwiseClone();

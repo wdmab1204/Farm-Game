@@ -50,8 +50,13 @@ public class JsonHelper : Singleton<JsonHelper>
     [ContextMenu("SaveJson")]
     public void SaveJson()
     {
-        List<Item> inventoryList = player.inventory.ListUpdate();
-        Item[] items = inventoryList.ToArray();
+        List<Item> inventoryList = player.inventory.GetCurrentList();
+        //Item[] items = inventoryList.ToArray();
+        Item[] items = new Item[3];
+        items[0] = new Item(TBL_Item.GetEntity(0));
+        items[0].count = 9;
+        items[1] = new Item(TBL_Item.GetEntity(20));
+        items[2] = new Item(TBL_Item.GetEntity(22));
         string jdata = JsonUtility.ToJson(new Serialization(items,777), prettyPrint: true);
         File.WriteAllText(Application.streamingAssetsPath + "/inventory.json", jdata);
     }

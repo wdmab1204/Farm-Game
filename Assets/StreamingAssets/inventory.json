@@ -1,43 +1,58 @@
 {
     "items": [
         {
-            "id": 100,
+            "id": 0,
             "name": "밀 씨앗",
-            "itemDescription": "밀을 심을 수 있다.",
+            "itemDescription": "",
             "count": 9,
-            "sellingPrice": 0,
-            "purchasePrice": 0,
+            "sellingPrice": 10,
+            "purchasePrice": 30,
+            "growTime": 0.0,
+            "minDropCount": 1,
+            "maxDropCount": 1,
+            "Icon": {
+                "instanceID": 14368
+            },
             "type": 1,
             "cropType": 0,
-            "growTime": 15,
-            "minDropCount": 1,
-            "maxDropCount": 1 
+            "minInventoryCount": 1,
+            "maxInventoryCount": 99
         },
         {
-            "id": 400,
+            "id": 20,
+            "name": "당근",
+            "itemDescription": "",
+            "count": 1,
+            "sellingPrice": 0,
+            "purchasePrice": 400,
+            "growTime": 0.0,
+            "minDropCount": 1,
+            "maxDropCount": 1,
+            "Icon": {
+                "instanceID": 14406
+            },
+            "type": 3,
+            "cropType": 4,
+            "minInventoryCount": 1,
+            "maxInventoryCount": 99
+        },
+        {
+            "id": 22,
             "name": "삽",
-            "itemDescription": "작물을 캘수 있는 도구이다.",
+            "itemDescription": "",
             "count": 1,
             "sellingPrice": 0,
             "purchasePrice": 0,
-            "type": 3,
+            "growTime": 0.0,
+            "minDropCount": 1,
+            "maxDropCount": 1,
+            "Icon": {
+                "instanceID": 14420
+            },
+            "type": 0,
             "cropType": 0,
-            "growTime": 0,
-            "minDropCount": 1,
-            "maxDropCount": 1 
-        },
-        {
-            "id": 200,
-            "name": "밀",
-            "itemDescription": "밀이다",
-            "count": 1,
-            "sellingPrice": 33,
-            "purchasePrice": 77,
-            "type": 2,
-            "cropType": 1,
-            "growTime": 0,
-            "minDropCount": 1,
-            "maxDropCount": 2 
+            "minInventoryCount": 1,
+            "maxInventoryCount": 99
         }
     ],
     "money": 777

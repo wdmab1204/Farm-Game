@@ -123,7 +123,7 @@ public class Inventory : MonoBehaviour
                 {
                     sprite = list[i].Icon;
                     slots[i].item = list[i];
-                    if (list[i].type != Item.ItemType.tool)
+                    if (list[i].type != ItemType.equip)
                         countString = list[i].count.ToString();
                 }
 
@@ -211,7 +211,7 @@ public class Inventory : MonoBehaviour
 
         switch (item.type)
         {
-            case Item.ItemType.use:
+            case ItemType.use:
 
                 if (col != null && col.TryGetComponent(out CultivatedGround cg))
                 {
@@ -232,11 +232,7 @@ public class Inventory : MonoBehaviour
                 }
 
                 break;
-            case Item.ItemType.equip:
-                break;
-            case Item.ItemType.etc:
-                break;
-            case Item.ItemType.tool:
+            case ItemType.equip:
                 //Collider2D[] hits = Physics2D.OverlapBoxAll(tilePos, new Vector2(0.5f, 0.5f), 0);
                 //foreach (Collider2D hit in hits)
                 //{
@@ -255,6 +251,11 @@ public class Inventory : MonoBehaviour
                         _cg.RemoveCrop(tilePos - _cg.transform.localPosition);
                     }
                 }
+                break;
+            case ItemType.etc:
+                break;
+            case ItemType.crop:
+                
 
                 break;
             default:

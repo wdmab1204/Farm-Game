@@ -54,7 +54,7 @@ public class Truck : MonoBehaviour
 
     public void SetCrop(Item crop)
     {
-        if(crop.type == Item.ItemType.etc && crop.cropType != Item.CropType.Nothing)
+        if(crop.type == ItemType.crop && crop.cropType != CropType.Nothing)
         {
             if (currentCount + crop.count <= maxCount)
             {

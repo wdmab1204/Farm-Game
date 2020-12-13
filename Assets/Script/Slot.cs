@@ -21,7 +21,7 @@ public class Slot : MonoBehaviour
     public void SetSlot(Item item)
     {
         string countString = "";
-        if (item.type != Item.ItemType.tool)
+        if (item.type != ItemType.equip)
             countString = item.count.ToString();
         Img.sprite = item.Icon;
         this.item = item;

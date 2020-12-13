@@ -13,7 +13,7 @@ public class CultivatedGround : MonoBehaviour
     public GameObject lowerLeftTileObject;
     public GameObject lowerRightTileObject;
 
-    public Item.CropType cropType;
+    public CropType cropType;
     private CompositeCollider2D col;
     private Vector3 gridPos;
     private List<GameObject> cropObjList;

@@ -1,6 +1,23 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+public enum ItemType
+{
+    equip, //장비
+    use, //소비
+    etc, //기타
+    crop //작물
+}
+
+public enum CropType
+{
+    Nothing, //작물이 아님
+    Cereal, //곡류
+    Bulbous, //구근류
+    Fruit, //과실류
+    Vegetable //채소류
+}
+
 [System.Serializable]
 public class Item
 {
@@ -41,23 +58,6 @@ public class Item
     }
     public ItemType type;
     public CropType cropType;
-
-    public enum ItemType
-    {
-        equip, //장비
-        use, //소비
-        etc, //기타
-        tool //도구
-    }
-
-    public enum CropType
-    {
-        Nothing, //작물이 아님
-        Cereal, //곡류
-        Bulbous, //구근류
-        Fruit, //과실류
-        Vegetable //채소류
-    }
 
     public Item(int id, string name, string itemDescription, ItemType type, CropType cropType, int sellingPrice, int purchasePrice, float growTime, int minDropCount, int maxDropCount, int count = 1)
     {

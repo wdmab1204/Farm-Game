@@ -1,0 +1,39 @@
+Asset is governed by the Asset Store EULA; 
+however, the following components are governed by the licenses indicated below:
+
+--------------------------------------------------------
+1) NPOI. 
+License: Apache License 2.0
+License details:  Free for commercial use, modification allowed 
+Home page: https://github.com/tonyqus/npoi
+Asset's Folder:  BansheeGz\BGDatabase\Editor\Libs\NPOI\ 
+
+2) google gdata v4. 
+License: Apache License 2.0
+License details:  Free for commercial use, modification allowed
+Home page: https://developers.google.com/sheets/api
+Asset's Folder:  BansheeGz\BGDatabase\Editor\Libs\GDataV4\
+
+3) Montserrat font. 
+License: SIL Open Font License 1.1
+License details: Free for commercial use, modification allowed
+Home page: https://github.com/JulietaUla/Montserrat/blob/master/fonts/ttf/Montserrat-Bold.ttf
+Asset's Folder: BansheeGz\BGDatabase\Examples\Content\Font\
+
+4) Audio effects 
+License: CC0 1.0 Universal (CC0 1.0)
+License details: Free for commercial use, modification allowed
+Home page: https://freesound.org/people/bradwesson/sounds/135936/, https://freesound.org/people/fins/sounds/171583/, https://freesound.org/people/Wagna/sounds/325805/
+Asset's Folder: BansheeGz\BGDatabase\Examples\Content\Resources\
+
+5) SimpleJson 
+License: MIT License  
+License details: Free for commercial use, modification allowed
+Home page: http://wiki.unity3d.com/index.php/SimpleJSON
+Asset's Folder: BansheeGz\BGDatabase\Scripts\ThirdParty\SimpleJson\
+
+6) LiteCsvParser
+License: MIT License  
+License details: Free for commercial use, modification allowed
+Home page: https://github.com/floatinghotpot/LiteCsvParser
+Asset's Folder: BansheeGz\BGDatabase\Scripts\ThirdParty\LiteCsvParser\

@@ -8,16 +8,6 @@ public class ItemManager : Singleton<ItemManager>
     [SerializeField]
     private ItemScriptableObject[] items = null;
 
-    private void Awake()
-    {
-        var objs = FindObjectsOfType<ItemManager>();
-        if (objs.Length != 1)
-        {
-            Destroy(gameObject);
-            return;
-        }
-    }
-
 
     public Item GetItem(int id)
     {

@@ -7,7 +7,7 @@
             "count": 9,
             "sellingPrice": 10,
             "purchasePrice": 30,
-            "growTime": 0.0,
+            "growTime": 15.0,
             "minDropCount": 1,
             "maxDropCount": 1,
             "Icon": {

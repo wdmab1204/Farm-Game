@@ -74,6 +74,7 @@ public class Item
         this.Icon = tBL_Item.Icon;
         this.type = tBL_Item.ItemType;
         this.cropType = tBL_Item.CropType;
+        this.growTime = tBL_Item.GrowTime;
         this.sellingPrice = tBL_Item.SellingPrice;
         this.purchasePrice = tBL_Item.PurchasePrice;
         this.minDropCount = tBL_Item.MinDropCount;

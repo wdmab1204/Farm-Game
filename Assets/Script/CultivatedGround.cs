@@ -95,7 +95,7 @@ public class CultivatedGround : MonoBehaviour
     public void SetCrop(Item item, Vector3 tilePos)
     {
         //땅에 작물심기
-        GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/" + item.id), transform);
+        GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/" + (100 + item.id).ToString()), transform);
         obj.transform.position = tilePos;
 
         GrowSystem gs = obj.GetComponentInChildren<GrowSystem>();

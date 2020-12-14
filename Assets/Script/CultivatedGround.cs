@@ -92,21 +92,30 @@ public class CultivatedGround : MonoBehaviour
     /// </summary>
     /// <param name="gs">플레이어가 심을 농작물</param>
     /// <param name="tilePos">농작물 위치</param>
-    public void SetCrop(Item item, Vector3 tilePos)
+    public bool SetCrop(Item item, Vector3 tilePos)
     {
         //땅에 작물심기
-        GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/" + (100 + item.id).ToString()), transform);
-        obj.transform.position = tilePos;
-
-        GrowSystem gs = obj.GetComponentInChildren<GrowSystem>();
-        gs.item = item;
-
-        if (gs.item.cropType == this.cropType)
+        try
         {
-            gs.maxGrowTime -= gs.maxGrowTime * 0.3f; //0.3배 성장속도 증가!
-        }
+            GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/" + (100 + item.id).ToString()), transform);
+            obj.transform.position = tilePos;
 
-        cropObjList.Add(obj);
+            GrowSystem gs = obj.GetComponentInChildren<GrowSystem>();
+            gs.item = item;
+
+            if (gs.item.cropType == this.cropType)
+            {
+                gs.maxGrowTime -= gs.maxGrowTime * 0.3f; //0.3배 성장속도 증가!
+            }
+
+            cropObjList.Add(obj);
+        }catch(Exception e)
+        {
+            Debug.LogError(e.ToString());
+            return false;
+        }
+        return true;
+        
     }
 
 

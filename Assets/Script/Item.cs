@@ -68,6 +68,16 @@ public class Item
 
     public Item(TBL_Item tBL_Item)
     {
+        Init(tBL_Item);
+    }
+
+    public Item(BansheeGz.BGDatabase.BGId bGId)
+    {
+        Init(TBL_Item.GetEntity(bGId));
+    }
+
+    private void Init(TBL_Item tBL_Item)
+    {
         this.id = tBL_Item.Index;
         this.name = tBL_Item.name;
         this.itemDescription = tBL_Item.Description;

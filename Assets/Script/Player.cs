@@ -42,7 +42,7 @@ public class Player : Singleton<Player>
         rb = GetComponent<Rigidbody2D>();
         mainCamera = Camera.main;
         offset = transform.position - mainCamera.transform.position;
-        if (inventory != null) inventory.list = new List<Item>(GameData.items);
+        if (inventory != null && GameData.items != null) inventory.list = new List<Item>(GameData.items);
     }
 
 

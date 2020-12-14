@@ -20,9 +20,11 @@ public class Npc : Inventory
     private void Start()
     {
         npcUI.SetActive(false);
-        foreach (ItemScriptableObject itemSO in npcSO.items)
+        foreach (string dbId in npcSO.BGId)
         {
-            Item item = ItemManager.Instance.GetItem(itemSO.id);
+            //Item item = ItemManager.Instance.GetItem(itemSO.id);
+            //list.Add(item);
+            Item item = new Item(TBL_Item.GetEntity(new BansheeGz.BGDatabase.BGId(dbId)));
             list.Add(item);
         }
     }

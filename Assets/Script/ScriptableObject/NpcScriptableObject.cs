@@ -6,5 +6,5 @@ using UnityEngine;
 
 public class NpcScriptableObject : ScriptableObject
 {
-    public ItemScriptableObject[] items;
+    public string[] BGId;
 }
